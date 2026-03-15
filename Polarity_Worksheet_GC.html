@@ -1,0 +1,2408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Molecular Polarity — Model Kit Activity (General Chemistry)</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#15102a; --paper:#fefcff; --lav:#f5f2ff; --tint:#ece8ff; --rule:#ddd8f0;
+  --indigo:#181040; --violet:#5b3fa0; --peri:#7c5cbf; --coral:#d94f2b;
+  --sky:#1a7fc4; --gold:#c9900a; --moss:#376348; --muted:#6b5c8a;
+  --vl:rgba(91,63,160,.09); --cl:rgba(217,79,43,.09); --sl:rgba(26,127,196,.09); --gl:rgba(201,144,10,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--lav);color:var(--ink);min-height:100vh}
+
+/* CHROMEBOOK BANNER */
+#cbBanner{display:none;background:var(--gold);color:#fff;padding:9px 20px;align-items:center;gap:14px;font-size:13px;font-weight:500;flex-wrap:wrap}
+#cbBanner.vis{display:flex}
+.cb-btn{background:rgba(255,255,255,.25);border:1.5px solid rgba(255,255,255,.6);color:#fff;font-size:12px;font-weight:600;padding:5px 14px;border-radius:4px;cursor:pointer;white-space:nowrap}
+.cb-x{background:none;border:none;color:rgba(255,255,255,.8);font-size:18px;cursor:pointer;margin-left:auto;padding:0 4px}
+
+/* HEADER */
+.hdr{background:var(--indigo);color:#fff;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;position:sticky;top:0;z-index:100;flex-wrap:wrap}
+.hdr-l{display:flex;flex-direction:column;gap:2px}
+.hdr-title{font-family:'DM Serif Display',serif;font-size:18px}
+.hdr-sub{font-family:'DM Mono',monospace;font-size:9.5px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.12em}
+.hdr-meta{display:flex;flex-direction:column;gap:5px;align-items:flex-end}
+.meta-row{display:flex;align-items:center;gap:8px}
+.meta-lbl{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em}
+.meta-in{background:rgba(255,255,255,.1);border:none;border-bottom:1.5px solid rgba(255,255,255,.25);color:#fff;font-family:'DM Sans',sans-serif;font-size:12px;padding:2px 6px;outline:none;min-width:120px}
+.meta-in:focus{border-bottom-color:var(--peri)}
+.meta-in::placeholder{color:rgba(255,255,255,.27)}
+.hdr-btns{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.hbtn{font-family:'DM Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.05em;padding:6px 13px;border-radius:4px;cursor:pointer;border:none;white-space:nowrap}
+.hr{background:#c0392b;color:#fff}
+.hr:hover{background:#a93226}
+.hbtn-print-wrap{position:relative;display:inline-block}
+.print-menu{display:none;position:absolute;top:100%;right:0;background:var(--paper);border:1.5px solid var(--rule);border-radius:5px;box-shadow:0 4px 14px rgba(0,0,0,.15);min-width:210px;z-index:300;overflow:hidden;margin-top:3px}
+.print-menu.open{display:block}
+.print-menu button{display:block;width:100%;text-align:left;background:none;border:none;padding:9px 14px;font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;color:var(--ink)}
+.print-menu button:hover{background:var(--lav)}
+.hp{background:var(--violet);color:#fff}.hp:hover{background:var(--peri)}
+.hs{background:rgba(255,255,255,.11);color:rgba(255,255,255,.85);border:1.5px solid rgba(255,255,255,.18)}.hs:hover{background:rgba(255,255,255,.2)}
+.hg{background:none;color:rgba(255,255,255,.4);border:1.5px solid rgba(255,255,255,.11);font-size:10px}.hg:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.7)}
+
+/* LAYOUT */
+.wrap{display:block;min-height:calc(100vh - 54px)}
+
+/* PANEL */
+.panel{display:none}
+.panel::-webkit-scrollbar{width:5px}.panel::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px}
+.p-head{font-family:'DM Serif Display',serif;font-size:14px;color:var(--indigo);padding-bottom:7px;border-bottom:2px solid var(--violet);margin-bottom:6px}
+
+/* EN Table */
+.en-card{background:var(--paper);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.en-card-h{background:var(--indigo);color:#fff;font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;padding:5px 10px}
+.en-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr}
+.en-c{padding:4px 8px;font-size:11.5px;border-bottom:1px solid var(--rule)}
+.en-c.s{font-family:'DM Mono',monospace;font-weight:700;color:var(--violet)}
+.en-c.v{font-family:'DM Mono',monospace;color:var(--coral);font-weight:600;border-right:1px solid var(--rule)}
+
+/* Bond type */
+.bt-tbl{width:100%;border-collapse:collapse;font-size:11.5px}
+.bt-tbl th{font-family:'DM Mono',monospace;font-size:8.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);padding:4px 8px;border-bottom:1.5px solid var(--rule);text-align:left}
+.bt-tbl td{padding:5px 8px;border-bottom:1px solid var(--rule);line-height:1.4}
+.bt-tbl tr:last-child td{border-bottom:none}
+.badge{display:inline-block;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;padding:1px 7px;border-radius:3px;white-space:nowrap}
+.bnp{background:rgba(26,127,196,.15);color:var(--sky)}.bpc{background:rgba(91,63,160,.15);color:var(--violet)}.bic{background:rgba(217,79,43,.15);color:var(--coral)}
+
+/* Dipole rules */
+.dp-box{background:var(--vl);border:1.5px solid rgba(91,63,160,.2);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:7px}
+.dp-title{font-family:'DM Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--violet)}
+.dp-rule{font-size:11.5px;line-height:1.55;display:flex;gap:8px;align-items:flex-start}
+.dp-arr{color:var(--coral);font-weight:700;flex-shrink:0;font-size:13px;margin-top:1px}
+.dp-ex{font-family:'DM Mono',monospace;font-size:12px;text-align:center;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:6px;letter-spacing:.12em}
+.dp-ex span.neg{color:var(--coral);font-weight:700}
+.dp-ex span.pos{color:var(--sky);font-weight:700}
+
+/* Flowchart */
+.flow{display:flex;flex-direction:column;gap:4px}
+.f-step{font-size:11px;line-height:1.5;padding:6px 10px;border-radius:4px;border-left:3px solid var(--rule)}
+/* VSEPR reference panel */
+
+.vsepr-note{font-size:10.5px;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--rule);line-height:1.4;background:var(--lav)}
+.vsepr-scroll{overflow-x:visible}
+.vsepr-tbl{width:100%;border-collapse:collapse;font-size:11px}
+.vsepr-tbl th{font-family:'DM Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:#fff;background:var(--indigo);padding:5px 6px;text-align:left;white-space:nowrap}
+.vsepr-tbl td{padding:4px 6px;border-bottom:1px solid var(--rule);font-size:10.5px;white-space:nowrap}
+.vsepr-tbl tr:last-child td{border-bottom:none}
+.vt-alt td{background:rgba(91,63,160,.04)}
+.vt-shape{font-weight:600;color:var(--indigo);font-family:'DM Mono',monospace;font-size:10px}
+.vt-ex{color:var(--muted);font-family:'DM Mono',monospace;font-size:10px}
+/* ── VSEPR REFERENCE DRAWER (right-edge file-folder tab) ── */
+.vsepr-drawer{position:fixed;top:60px;right:-580px;width:570px;height:calc(100vh - 60px);background:var(--paper);border-left:3px solid var(--violet);box-shadow:-4px 0 24px rgba(24,16,64,.14);display:flex;flex-direction:column;z-index:150;transition:right .35s cubic-bezier(.4,0,.2,1);overflow:hidden}
+.vsepr-drawer.open{right:0}
+.vsepr-drawer-header{background:var(--indigo);color:#fff;padding:11px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;border-bottom:2px solid var(--violet)}
+.vsepr-drawer-title{font-family:'DM Serif Display',serif;font-size:14px;flex:1;line-height:1.2}
+.vsepr-drawer-close{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:4px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;flex-shrink:0;transition:background .15s}
+.vsepr-drawer-close:hover{background:rgba(255,255,255,.25)}
+.vsepr-drawer-scroll{flex:1;overflow-y:auto;padding:12px 12px 28px}
+.vsepr-drawer-tab{position:fixed;top:50%;right:0;transform:translateY(-50%);z-index:149;background:var(--violet);color:#fff;border:none;border-radius:6px 0 0 6px;padding:10px 7px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;box-shadow:-2px 0 10px rgba(24,16,64,.2);transition:right .35s cubic-bezier(.4,0,.2,1),background .15s,top .2s ease}
+.vsepr-drawer-tab:hover{background:var(--peri)}
+.vsepr-drawer-tab.open{right:570px;background:var(--indigo);border:1.5px solid var(--violet);border-right:none}
+.vsepr-drawer-tab.open:hover{background:#2a1860}
+.vdt-icon{font-size:15px;line-height:1}
+.vdt-label{font-family:'DM Mono',monospace;font-size:8.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;writing-mode:vertical-rl;text-orientation:mixed;line-height:1}
+.f1{border-color:var(--sky);background:var(--sl)}
+.f2{border-color:var(--violet);background:var(--vl)}
+.f3{border-color:var(--coral);background:var(--cl)}
+.f-arr{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);text-align:center}
+.cancel-grid{display:flex;flex-direction:column;gap:3px;margin-top:4px}
+.cg-row{display:flex;justify-content:space-between;align-items:center;font-size:10.5px;padding:2px 0;border-bottom:1px solid var(--rule)}
+.cg-row:last-child{border-bottom:none}
+.cg-geo{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)}
+.cg-res{font-family:'DM Mono',monospace;font-size:10px;font-weight:700}
+.cg-yes{color:var(--sky)}.cg-no{color:var(--coral)}
+
+/* MAIN */
+.main{flex:1;min-width:0;padding:22px 22px 54px;display:flex;flex-direction:column;gap:18px}
+
+/* SECTIONS */
+.sec{background:var(--paper);border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.sec-h{display:flex;align-items:center;gap:12px;padding:12px 18px;cursor:pointer;user-select:none;border-bottom:1px solid var(--rule);transition:background .15s}
+.sec-h:hover{background:var(--lav)}
+.sec-num{font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:#fff;background:var(--indigo);padding:3px 8px;border-radius:3px;letter-spacing:.05em}
+.sec-title{font-family:'DM Serif Display',serif;font-size:16px;color:var(--indigo);flex:1}
+.sec-chev{font-size:11px;color:var(--muted);transition:transform .2s}
+.sec.coll .sec-chev{transform:rotate(-90deg)}
+.sec.coll .sec-body{display:none}
+.sec-in{padding:20px;display:flex;flex-direction:column;gap:18px}
+
+/* Callout */
+.callout{font-size:13.5px;line-height:1.65;padding:12px 16px;border-radius:6px;border-left:3px solid var(--violet);background:var(--vl)}
+.callout.cb{border-color:var(--sky);background:var(--sl)}
+.callout.cc{border-color:var(--coral);background:var(--cl)}
+.callout.cg{border-color:var(--gold);background:var(--gl)}
+.callout p+p{margin-top:8px}
+.step-pills{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.s-pill{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5}
+.pill{font-family:'DM Mono',monospace;font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:3px;white-space:nowrap;margin-top:2px;flex-shrink:0}
+.pill.v{background:var(--violet);color:#fff}.pill.b{background:var(--indigo);color:#fff}.pill.s{background:var(--sky);color:#fff}
+
+/* Section 1 bond table */
+.bp-wrap{overflow-x:auto}
+.sec1-ref-row{display:flex;gap:16px;margin-bottom:16px;align-items:flex-start;flex-wrap:wrap}
+.sec1-ref-card{flex:1;min-width:200px;background:var(--paper);border:1.5px solid var(--rule);border-radius:7px;padding:12px 14px}
+.sec1-ref-head{font-family:'DM Serif Display',serif;font-size:13px;color:var(--indigo);padding-bottom:7px;border-bottom:2px solid var(--violet);margin-bottom:8px}
+.bp-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.bp-tbl th{font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);padding:7px 10px;border-bottom:2px solid var(--rule);text-align:center;white-space:nowrap}
+.bp-tbl th:first-child{text-align:left}
+.bp-tbl td{padding:7px 8px;border-bottom:1px solid var(--rule);text-align:center;vertical-align:middle}
+.bp-tbl td:first-child{text-align:left}
+.bp-tbl tbody tr:hover{background:var(--lav)}
+.bp-tbl tbody tr:last-child td{border-bottom:none}
+.bond-lbl{font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:var(--indigo)}
+.en-in{border:none;border-bottom:2px solid var(--rule);background:transparent;font-family:'DM Mono',monospace;font-size:13px;font-weight:600;color:var(--ink);text-align:center;width:44px;padding:2px 2px;outline:none;transition:border-color .15s}
+.en-in:focus{border-bottom-color:var(--violet)}
+.den-val{font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--violet)}
+.den-ref{font-family:'DM Mono',monospace;font-weight:700;color:var(--violet)}
+.el-chip{display:inline-flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:10px;font-weight:700;color:#fff;border-radius:4px;padding:2px 6px;margin-right:3px}
+.bt-in{border:none;border-bottom:1.5px solid var(--rule);background:transparent;font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--ink);padding:3px 6px;outline:none;min-width:130px;transition:border-color .15s}
+.bt-in:focus{border-bottom-color:var(--violet)}
+.bt-sel{font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--ink);border:1.5px solid var(--rule);border-radius:4px;padding:3px 6px;background:var(--paper);outline:none;min-width:150px;cursor:pointer;transition:border-color .15s}
+.bt-sel:focus{border-color:var(--violet)}
+.mol-tag{font-size:11.5px;color:var(--muted)}
+
+/* Molecule cards (Section 2) */
+.mol-card{background:var(--paper);border:1.5px solid var(--rule);border-radius:7px;overflow:hidden;margin-bottom:14px}
+.mol-card:last-child{margin-bottom:0}
+.mol-head{display:flex;align-items:center;gap:10px;padding:8px 16px;background:var(--lav);border-bottom:1px solid var(--rule);flex-wrap:nowrap;overflow-x:auto}
+.mol-formula{font-family:'DM Serif Display',serif;font-size:22px;color:var(--indigo)}
+.mol-name{font-size:12.5px;color:var(--muted)}
+.mol-geo-wrap{margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0;white-space:nowrap}
+.geo-lbl{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.geo-in{border:none;border-bottom:1.5px solid var(--rule);background:transparent;font-family:'DM Mono',monospace;font-size:12px;color:var(--indigo);font-weight:600;padding:2px 6px;outline:none;min-width:80px;transition:border-color .15s}
+.geo-in:focus{border-bottom-color:var(--violet)}
+.geo-sel{font-family:'DM Mono',monospace;font-size:12px;color:var(--indigo);font-weight:600;border:none;border-bottom:1.5px solid var(--rule);background:transparent;padding:2px 4px;outline:none;cursor:pointer;transition:border-color .15s}
+.geo-sel:focus{border-bottom-color:var(--violet)}
+.mol-body{padding:14px 16px;display:flex;flex-direction:column;gap:12px}
+
+/* Bond mini-info */
+.bond-mini{width:100%;border-collapse:collapse;font-size:12.5px}
+.bond-mini th{font-family:'DM Mono',monospace;font-size:8.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:4px 10px;border-bottom:1.5px solid var(--rule);text-align:left}
+.bond-mini td{padding:5px 10px;border-bottom:1px solid var(--rule);vertical-align:middle}
+.bond-mini tr:last-child td{border-bottom:none}
+.py{color:var(--coral);font-family:'DM Mono',monospace;font-size:11px;font-weight:700}
+.pn{color:var(--sky);font-family:'DM Mono',monospace;font-size:11px;font-weight:700}
+.mini-note{font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.5}
+.bond-bold{font-family:'DM Mono',monospace;font-weight:700;color:var(--indigo)}
+
+/* Canvas drawing */
+.draw-zone{display:flex;flex-direction:column;gap:4px}
+.dz-lbl{font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.dz-hint{font-size:11.5px;color:var(--muted);line-height:1.5;font-style:italic;margin-bottom:2px}
+.toolbar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:6px 8px;background:var(--lav);border:1px solid var(--rule);border-radius:6px 6px 0 0;border-bottom:none}
+.tb-grp{display:flex;align-items:center;gap:4px}
+.tb-lbl{font-family:'DM Mono',monospace;font-size:8.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-right:2px}
+.tb-sep{width:1px;height:20px;background:var(--rule);margin:0 2px}
+.tb-btn{background:var(--paper);border:1.5px solid var(--rule);border-radius:4px;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:border-color .15s,background .15s}
+.tb-btn:hover,.tb-btn.act{border-color:var(--violet);background:var(--vl)}
+.sz-btn{background:var(--paper);border:1.5px solid var(--rule);border-radius:4px;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .15s,background .15s}
+.sz-btn:hover,.sz-btn.act{border-color:var(--violet);background:var(--vl)}
+.sz-dot{background:var(--ink);border-radius:50%}
+.sw{width:20px;height:20px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:border-color .15s,transform .15s}
+.sw:hover{transform:scale(1.15)}.sw.sel{border-color:var(--ink)}
+.cvs-wrap{position:relative;border:1.5px solid var(--rule);background:#fff;overflow:hidden}
+.cvs-wrap canvas{display:block;width:100%;cursor:crosshair;touch-action:none}
+.cvs-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;pointer-events:none}
+.cvs-ph-icon{font-size:28px;opacity:.15}
+.cvs-ph-txt{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);opacity:.5;letter-spacing:.05em;text-align:center;padding:0 20px}
+.resize-h{background:var(--lav);border:1.5px solid var(--rule);border-top:none;border-radius:0 0 6px 6px;display:flex;align-items:center;justify-content:center;height:14px;cursor:ns-resize;user-select:none}
+.resize-dots{font-size:9px;color:var(--muted);letter-spacing:2px;opacity:.55}
+
+/* Polarity decision */
+.polar-dec{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;padding:10px 14px;background:var(--lav);border-radius:6px}
+.pd-q{display:flex;flex-direction:column;gap:5px}
+.pd-lbl{font-family:'DM Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.radio-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.r-opt{display:flex;align-items:center;gap:5px;cursor:pointer;font-size:13px;user-select:none}
+.r-opt input[type=radio]{accent-color:var(--violet);width:15px;height:15px}
+
+/* Questions */
+.question{display:flex;flex-direction:column;gap:6px}
+.q-lbl{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.q-text{font-size:13.5px;line-height:1.6}
+.ans{border:none;border-bottom:1.5px solid var(--rule);background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);padding:6px 4px;width:100%;outline:none;resize:none;transition:border-color .2s}
+.ans:focus{border-bottom-color:var(--violet)}
+textarea.ans{min-height:52px;line-height:1.6}
+
+/* Summary table */
+.sum-wrap{overflow-x:auto}
+.sum-tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.sum-tbl th{font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);padding:7px 10px;border-bottom:2px solid var(--rule);text-align:center;white-space:nowrap}
+.sum-tbl th:first-child{text-align:left}
+.sum-tbl td{padding:7px 10px;border-bottom:1px solid var(--rule);text-align:center;vertical-align:middle}
+.sum-tbl td:first-child{text-align:left;font-family:'DM Mono',monospace;font-weight:700;font-size:13px;color:var(--indigo)}
+.sum-tbl tbody tr:hover{background:var(--lav)}
+.sum-tbl tbody tr:last-child td{border-bottom:none}
+.fx{color:var(--muted);font-size:12px}
+.ss{border:none;border-bottom:1.5px solid var(--rule);background:transparent;font-family:'DM Mono',monospace;font-size:11.5px;color:var(--ink);padding:2px 4px;outline:none;cursor:pointer;width:100%;min-width:90px}
+.ss:focus{border-bottom-color:var(--violet)}
+
+/* Reflection */
+.refl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.refl-card{background:var(--lav);border:1px solid var(--rule);border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:6px}
+
+/* ── BUILD LIST + PIN GATE ── */
+.build-gate{background:var(--tint);border:1.5px solid var(--rule);border-radius:8px;overflow:hidden;margin-bottom:16px}
+.bg-top{padding:14px 16px;border-bottom:1.5px solid var(--rule)}
+.bg-title{font-family:'DM Serif Display',serif;font-size:15px;color:var(--indigo);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.phet-link{color:var(--violet);font-weight:600;text-decoration:none;border-bottom:1.5px solid var(--violet)}
+.phet-link:hover{color:var(--coral);border-color:var(--coral)}
+.phet-btn{display:inline-flex;align-items:center;gap:8px;background:#e65c00;color:#fff;font-family:'DM Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:8px 16px;border-radius:5px;text-decoration:none;transition:background .15s}
+.phet-btn:hover{background:#c44d00}
+.mol-chip-list{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.mol-chip{background:var(--paper);border:1.5px solid var(--rule);border-radius:20px;padding:4px 11px;font-family:'DM Mono',monospace;font-size:12px;color:var(--indigo);font-weight:600;display:flex;align-items:center;gap:5px;cursor:default}
+.mol-chip .chip-geo{font-family:'DM Sans',sans-serif;font-size:10px;color:var(--muted);font-weight:400;background:var(--lav);padding:1px 6px;border-radius:10px}
+.bg-steps{display:flex;flex-direction:column;gap:5px}
+.bg-step{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;line-height:1.5}
+.bg-step .sn{background:var(--violet);color:#fff;font-family:'DM Mono',monospace;font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;flex-shrink:0;margin-top:2px}
+
+/* PIN gate */
+.pin-gate{padding:14px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:rgba(91,63,160,.06);border-top:1.5px solid var(--rule)}
+.pin-gate.unlocked{background:rgba(55,99,72,.08);border-top-color:rgba(55,99,72,.25)}
+.pin-lbl{font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:var(--violet);text-transform:uppercase;letter-spacing:.05em;flex-shrink:0}
+.pin-lbl.ok{color:var(--moss)}
+.pin-in{font-family:'DM Mono',monospace;font-size:15px;font-weight:700;letter-spacing:.2em;border:2px solid var(--rule);border-radius:5px;padding:6px 12px;width:110px;outline:none;background:var(--paper);color:var(--indigo);text-align:center}
+.pin-in:focus{border-color:var(--violet)}
+.pin-btn{background:var(--violet);color:#fff;border:none;font-family:'DM Mono',monospace;font-size:11px;font-weight:700;padding:8px 18px;border-radius:5px;cursor:pointer;letter-spacing:.04em}
+.pin-btn:hover{background:var(--peri)}
+.pin-status{font-size:12px;font-family:'DM Sans',sans-serif;color:var(--coral);font-weight:600}
+.pin-status.ok{color:var(--moss)}
+.pin-locked-msg{font-size:12px;color:var(--muted)}
+
+/* Reference image reveal */
+.ref-reveal{overflow:hidden;max-height:0;opacity:0;transition:max-height .7s ease, opacity .4s ease;border-bottom:1.5px solid var(--rule)}
+.ref-reveal.shown{max-height:3000px;opacity:1}
+.ref-hdr{background:linear-gradient(90deg,rgba(55,99,72,.12),rgba(55,99,72,.04));padding:9px 14px;display:flex;align-items:center;gap:9px;border-bottom:1px solid rgba(55,99,72,.18)}
+.ref-icon{font-size:15px}
+.ref-lbl{font-family:'DM Mono',monospace;font-size:10.5px;font-weight:700;color:var(--moss);text-transform:uppercase;letter-spacing:.07em}
+.ref-sub{font-size:11px;color:var(--muted);margin-left:auto}
+.ref-body{display:flex;align-items:flex-start;gap:0;background:var(--paper)}
+.ref-svg-wrap{padding:10px 14px;flex-shrink:0;width:260px}
+.ref-svg-wrap svg{width:100%;height:auto;display:block}
+.ref-notes{padding:12px 14px;flex:1;border-left:1px solid var(--rule)}
+.ref-note-head{font-family:'DM Mono',monospace;font-size:9.5px;font-weight:700;color:var(--violet);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.ref-fact{display:flex;gap:7px;font-size:11.5px;line-height:1.5;margin-bottom:4px}
+.ref-fact::before{content:"▸";color:var(--violet);flex-shrink:0;margin-top:1px}
+.bond-legend{margin-top:10px;padding-top:8px;border-top:1px solid var(--rule)}
+.bond-legend-head{font-family:'DM Mono',monospace;font-size:9.5px;font-weight:700;color:var(--violet);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.bond-leg{display:flex;align-items:center;gap:7px;font-size:11px;line-height:1.4;margin-bottom:4px;color:var(--ink)}
+.bl-line{width:28px;height:10px;flex-shrink:0;display:flex;align-items:center}
+
+@media(max-width:900px){
+  .en-grid{grid-template-columns:repeat(4,1fr)}
+  .refl-grid{grid-template-columns:1fr}
+}
+/* ── CONCEPT BLOCK (Dipole Vectors section) ── */
+.concept-block{display:flex;flex-direction:column;gap:12px}
+.cb-section{display:flex;flex-direction:column;gap:6px}
+.cb-label{font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--violet);font-weight:700;border-bottom:1px solid var(--rule);padding-bottom:3px;margin-bottom:2px}
+.cb-p{font-size:12px;line-height:1.6;color:var(--ink)}
+.vec-demo{background:var(--paper);border:1px solid var(--rule);border-radius:5px;padding:9px 12px;display:flex;flex-direction:column;gap:4px}
+.vec-row{display:flex;align-items:center;gap:6px}
+.vec-pos{font-family:'DM Mono',monospace;font-size:12px;font-weight:700;color:#276749}
+.vec-neg{font-family:'DM Mono',monospace;font-size:12px;font-weight:700;color:#d94f2b}
+.vec-caption{font-size:10.5px;color:var(--muted);line-height:1.45;font-style:italic}
+.vec-compare{display:flex;flex-direction:column;gap:8px}
+.vc-mol{background:var(--paper);border:1px solid var(--rule);border-radius:5px;padding:8px 10px;display:flex;flex-direction:column;gap:4px}
+.vc-name{font-family:'DM Mono',monospace;font-size:10px;font-weight:700;color:var(--indigo);text-transform:uppercase;letter-spacing:.06em}
+.vc-svg{width:100%;height:auto}
+.pc-img-wrap{border:1.5px solid var(--rule);border-radius:5px;overflow:hidden;background:var(--paper)}
+.pc-img{width:100%;display:block}
+.pc-img-err{padding:10px;font-size:11px;color:var(--muted);text-align:center}
+.cb-src-link{font-family:'DM Mono',monospace;font-size:9px;color:var(--violet);text-decoration:none;margin-bottom:3px;display:inline-block}
+.cb-src-link:hover{text-decoration:underline}
+.two-step{display:flex;flex-direction:column;gap:7px}
+.ts-row{display:flex;gap:8px;align-items:flex-start;font-size:12px;line-height:1.55}
+.ts-num{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;background:var(--violet);color:#fff;border-radius:50%;font-family:'DM Mono',monospace;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
+.cb-sources{font-size:10px;color:var(--muted);line-height:1.6;border-top:1px solid var(--rule);padding-top:6px;margin-top:2px}
+.cb-sources a{color:var(--violet);text-decoration:none}.cb-sources a:hover{text-decoration:underline}
+
+/* ── CONCEPT CARD ── */
+.concept-card{background:var(--paper);border:1.5px solid var(--rule);border-radius:7px;overflow:hidden}
+.cc-head{background:var(--indigo);color:#fff;font-family:'DM Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:7px 14px}
+.cc-body{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:14px}
+.cc-text{font-size:13px;line-height:1.65;display:flex;flex-direction:column;gap:8px}
+.cc-list{margin-left:18px;display:flex;flex-direction:column;gap:4px;font-size:13px;line-height:1.5}
+.cc-fig{display:flex;flex-direction:column;align-items:center;gap:6px}
+.cc-svg{width:100%;height:auto}
+.cc-fig-cap{font-family:'DM Mono',monospace;font-size:9.5px;color:var(--muted);text-align:center;line-height:1.4}
+@media(max-width:700px){.cc-body{grid-template-columns:1fr}}
+
+/* ── WORKED EXAMPLES ── */
+.worked-ex{background:var(--paper);border:1.5px solid var(--rule);border-radius:7px;overflow:hidden}
+.we-head{display:flex;align-items:center;gap:10px;padding:8px 14px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.we-badge{font-family:'DM Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:3px 9px;border-radius:3px}
+.we-np{background:rgba(26,127,196,.12);color:#1a7fc4}
+.we-p{background:rgba(217,79,43,.12);color:#d94f2b}
+.we-formula{font-family:'DM Serif Display',serif;font-size:20px;color:var(--indigo)}
+.we-geo{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)}
+.we-body{display:grid;grid-template-columns:260px 1fr;gap:0}
+.we-fig{display:flex;align-items:center;justify-content:center;padding:14px;border-right:1px solid var(--rule);background:var(--lav)}
+.we-svg{width:100%;max-width:260px;height:auto}
+.we-steps{padding:14px 18px;display:flex;flex-direction:column;gap:10px;justify-content:center}
+.we-step{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.55}
+.ws-n{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;background:var(--violet);color:#fff;border-radius:50%;font-family:'DM Mono',monospace;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
+@media(max-width:700px){.we-body{grid-template-columns:1fr}.we-fig{border-right:none;border-bottom:1px solid var(--rule)}}
+
+/* ── PRACTICE CARDS (overlay layout) ── */
+.practice-head{font-family:'DM Serif Display',serif;font-size:16px;color:var(--indigo);padding-top:4px}
+.practice-sub{font-size:13px;color:var(--muted);line-height:1.55;margin-top:-10px}
+.practice-card{background:var(--paper);border:1.5px solid var(--rule);border-radius:7px;overflow:hidden}
+.pc-head{display:flex;align-items:center;gap:10px;padding:9px 14px;background:var(--lav);border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.pc-formula{font-family:'DM Serif Display',serif;font-size:20px;color:var(--indigo)}
+.pc-name{font-size:12.5px;color:var(--muted)}
+.pc-geo{font-family:'DM Mono',monospace;font-size:9.5px;color:var(--peri);margin-left:auto}
+.pc-body-v2{padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.pc-overlay-hint{font-size:12.5px;color:var(--muted);line-height:1.5;font-style:italic}
+.pc-overlay-wrap{position:relative;border:1.5px solid var(--rule);border-radius:6px;overflow:hidden;background:#fefcff;display:block}
+.pc-overlay-svg{display:block;width:100%;height:auto;max-height:min(50vh,480px)}
+.pc-overlay-wrap canvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair;touch-action:none}
+.pc-questions{display:flex;flex-direction:column;gap:10px;padding:10px 14px;background:var(--lav);border-radius:5px}
+.pc-q{display:flex;flex-direction:column;gap:5px}
+.pc-qlbl{font-family:'DM Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+
+/* ── MOL CARD OVERLAY ── */
+.mol-overlay-outer{display:flex;flex-direction:column;gap:5px;flex:1;min-width:0}
+.mol-overlay-hint{font-size:12px;color:var(--muted);font-style:italic}
+.mol-overlay-wrap{position:relative;border:1.5px solid var(--rule);border-radius:6px;overflow:hidden;background:#fefcff}
+.mol-overlay-svg{display:block;width:100%;height:auto;max-height:min(52vh,460px)}
+.mol-overlay-wrap canvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair;touch-action:none}
+.ref-body{display:flex;gap:14px;padding:14px;align-items:flex-start}
+.ref-sidebar{width:200px;flex-shrink:0;display:flex;flex-direction:column;gap:6px}
+@media(max-width:780px){.ref-body{flex-direction:column}.ref-sidebar{width:100%}}
+
+/* ── FLOWCHART STEPS ── */
+.flowchart-steps{display:flex;flex-direction:column;gap:0;border-top:1.5px solid var(--rule)}
+.fc-step{padding:12px 16px;border-bottom:1px solid var(--rule);display:flex;flex-direction:column;gap:7px}
+.fc-step:last-child{border-bottom:none}
+.fc-step-hdr{display:flex;align-items:flex-start;gap:10px}
+.fc-n{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;background:var(--violet);color:#fff;border-radius:50%;font-family:'DM Mono',monospace;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.fc-q{font-size:13.5px;font-weight:600;color:var(--indigo);line-height:1.4;padding-top:2px}
+.fc-hint{font-size:12.5px;color:var(--muted);line-height:1.5;padding-left:34px}
+.fc-draw{background:rgba(91,63,160,.05)}
+.fc-final{background:var(--lav)}
+.fc-final .fc-n{background:var(--coral)}
+
+/* ── PIN LOCK OVERLAY ── */
+.sec4-locked{position:relative;min-height:60px}
+.pin-lock-overlay{position:relative;background:rgba(91,63,160,.07);border:1.5px dashed rgba(91,63,160,.3);border-radius:7px;padding:18px;margin-bottom:16px;text-align:center}
+.plo-inner{font-family:'DM Mono',monospace;font-size:13px;color:var(--violet);font-weight:600}
+.pin-lock-overlay.unlocked{display:none}
+
+/* PRINT STYLES */
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  @page{size:letter;margin:0.5in 0.5in 0.55in}
+  body{background:#fff;font-size:10.5pt}
+  #cbBanner,.hdr,.toolbar,.resize-h,.cvs-ph,.hbtn,.pin-gate,.pin-lock-overlay,.sec-chev,
+  .vsepr-drawer,.vsepr-drawer-tab,.sec1-ref-row .sec1-ref-card+.sec1-ref-card{display:none!important}
+  .wrap{display:block}
+  .main{padding:0;width:100%!important;max-width:100%!important}
+
+  /* Sections — force open, never break mid-header */
+  .sec{border:1pt solid #ddd;margin-bottom:10pt;break-inside:auto}
+  .sec.coll .sec-body{display:block!important;max-height:none!important}
+  .sec-body{max-height:none!important;overflow:visible!important}
+  .sec-h{background:#181040!important;color:#fff!important;padding:6pt 10pt;break-after:avoid}
+  .sec-num{background:#fff!important;color:#181040!important;padding:2pt 6pt}
+  .sec-title{color:#fff!important;font-size:13pt}
+  .sec-in{padding:8pt 10pt;gap:8pt}
+
+  /* Keep each content block together */
+  .question{break-inside:avoid;margin-bottom:8pt}
+  .practice-card{break-inside:avoid;margin-bottom:8pt;border:1pt solid #ddd;border-radius:3pt;padding:6pt}
+  .worked-ex{break-inside:avoid;margin-bottom:8pt;border:1pt solid #ddd;border-radius:3pt;padding:6pt}
+  .concept-card{break-inside:avoid;margin-bottom:8pt}
+  .mol-card{break-inside:avoid;margin-bottom:8pt;border:1pt solid #ddd}
+  .ref-reveal{break-inside:avoid}
+  .ref-reveal.shown{max-height:none!important}
+  .refl-card{break-inside:avoid;background:#f5f2ff!important;border:1pt solid #ccc;padding:6pt}
+  .refl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8pt;break-inside:avoid}
+  .sum-wrap{break-inside:avoid}
+  .callout{break-inside:avoid;border-left:3pt solid #5b3fa0;padding:6pt 10pt;background:#f5f2ff!important;margin-bottom:6pt}
+  .build-gate{break-inside:avoid;margin-bottom:8pt}
+  .we-body{break-inside:avoid}
+  .pc-body-v2{break-inside:avoid}
+  .flowchart{break-inside:avoid}
+  .step-pills{gap:4pt;break-inside:avoid}
+
+  /* Keep headings attached to what follows */
+  .sec-h,.we-head,.pc-head,.mol-head,.practice-head{break-after:avoid}
+
+  /* Tables */
+  .bp-tbl,.sum-tbl,.bond-mini,.bt-tbl{break-inside:avoid}
+  .bp-tbl th,.sum-tbl th,.bond-mini th,.bt-tbl th{background:#ece8ff!important;font-size:8pt;padding:3pt 5pt}
+  .bp-tbl td,.sum-tbl td,.bond-mini td,.bt-tbl td{padding:3pt 5pt;font-size:9.5pt}
+
+  /* Inputs */
+  .en-in,.geo-in,.ss,.bt-sel{border:none;border-bottom:1pt solid #aaa;background:transparent;width:100%;font-size:10pt;min-width:0}
+  .ans{border:none;border-bottom:1pt solid #aaa;background:transparent;width:100%;font-size:10pt;min-height:0;height:auto}
+  textarea.ans{height:auto;overflow:hidden}
+
+  /* Mol cards */
+  .mol-head{background:#ece8ff!important;padding:4pt 10pt}
+  .mol-formula{font-size:15pt}
+  .mol-body{padding:6pt 10pt}
+
+  /* Canvas / overlay areas */
+  .cvs-wrap,.pc-overlay-wrap,.mol-overlay-wrap{border:1pt solid #bbb!important;background:#fafafa!important;break-inside:avoid}
+  canvas{display:none}
+  .we-svg,.cc-svg,.pc-overlay-svg{max-width:100%;height:auto}
+
+  /* Misc */
+  .polar-dec{background:#f5f2ff!important;padding:5pt 10pt;margin-top:4pt;break-inside:avoid}
+  .r-opt{font-size:10pt}
+  .q-lbl{font-size:8pt}
+  .flowchart-steps{break-inside:avoid}
+  .fc-step{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<div id="cbBanner">
+  <strong>⚠ Important:</strong> Progress auto-saves to <em>this browser only</em>. To continue on another device, click <strong>Save Progress</strong> to download a file, then <strong>Load Progress</strong> on the next device.
+  <button class="cb-btn" onclick="saveFile()">⬇ Save Progress</button>
+  <label class="cb-btn" style="cursor:pointer">⬆ Load<input type="file" accept=".json" style="display:none" onchange="loadFile(event)"></label>
+  <button class="cb-x" onclick="this.closest('#cbBanner').classList.remove('vis')">✕</button>
+</div>
+
+<div class="hdr">
+  <div class="hdr-l">
+    <div class="hdr-title">Molecular Polarity — Model Kit Activity</div>
+    <div class="hdr-sub">Concordia Academy · General Chemistry · Bond Polarity → Molecular Polarity</div>
+  </div>
+  <div class="hdr-meta">
+    <div class="meta-row"><span class="meta-lbl">Name</span><input class="meta-in" id="sName" placeholder="Your name…"></div>
+    <div class="meta-row"><span class="meta-lbl">Period</span><input class="meta-in" id="sPeriod" placeholder="Period…" style="min-width:70px"></div>
+    <div class="meta-row"><span class="meta-lbl">Date</span><input class="meta-in" id="sDate" placeholder="Date…" style="min-width:90px"></div>
+  </div>
+  <div class="hdr-btns">
+    <button class="hbtn hp" onclick="submitWork()">⬇ Submit Work</button>
+    <button class="hbtn hs" onclick="saveFile()">⬇ Save Progress</button>
+    <label class="hbtn hs" style="cursor:pointer" title="Load a .json progress file or a .html submission file">⬆ Load Progress<input type="file" accept=".json,.html" style="display:none" onchange="loadAny(event)"></label>
+    <div class="hbtn-print-wrap">
+      <button class="hbtn hg" onclick="togglePrintMenu(this)">🖨 Print ▾</button>
+      <div class="print-menu" id="printMenu">
+        <button onclick="printVersion();closePrintMenu()">Print completed worksheet</button>
+        <button onclick="printBlank();closePrintMenu()">Print blank worksheet</button>
+      </div>
+    </div>
+    <button class="hbtn hr" onclick="resetAll()">↺ Reset</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ═══ LEFT PANEL ═══ -->
+
+
+<!-- ═══ MAIN ═══ -->
+<div class="main">
+
+<!-- SECTION 1 -->
+<div class="sec" id="sec1">
+  <div class="sec-h" onclick="toggleSec(this)">
+    <span class="sec-num">01</span>
+    <span class="sec-title">Bond Polarity Review</span>
+    <span class="sec-chev">▼</span>
+  </div>
+  <div class="sec-body"><div class="sec-in">
+
+    <div class="callout">
+      Before you can determine if a molecule is polar, you need to know if its <em>bonds</em> are polar. Use the reference tables below to look up EN values and classify each bond. The ΔEN column calculates automatically once you enter both EN values.
+    </div>
+
+    <div class="sec1-ref-row">
+      <div class="sec1-ref-card">
+        <div class="sec1-ref-head">Pauling Electronegativity Values</div>
+        <div class="en-card">
+          <div class="en-card-h">Element → EN value</div>
+          <div class="en-grid">
+            <div class="en-c s">H</div><div class="en-c v">2.1</div>
+            <div class="en-c s">B</div><div class="en-c v">2.0</div>
+            <div class="en-c s">C</div><div class="en-c v">2.5</div>
+            <div class="en-c s">N</div><div class="en-c v">3.0</div>
+            <div class="en-c s">O</div><div class="en-c v">3.5</div>
+            <div class="en-c s">F</div><div class="en-c v">4.0</div>
+            <div class="en-c s">P</div><div class="en-c v">2.1</div>
+            <div class="en-c s">S</div><div class="en-c v">2.5</div>
+            <div class="en-c s">Cl</div><div class="en-c v">3.0</div>
+            <div class="en-c s">Br</div><div class="en-c v">2.8</div>
+            <div class="en-c s">I</div><div class="en-c v">2.5</div>
+            <div class="en-c s">Xe</div><div class="en-c v">2.6</div>
+          </div>
+        </div>
+      </div>
+      <div class="sec1-ref-card">
+        <div class="sec1-ref-head">Bond Type Chart</div>
+        <table class="bt-tbl" style="width:100%">
+          <thead><tr><th>ΔEN</th><th>Bond Type</th></tr></thead>
+          <tbody>
+            <tr><td>ΔEN &lt; 0.4</td><td><span class="badge bnp">Nonpolar covalent</span></td></tr>
+            <tr><td>0.4 ≤ ΔEN ≤ 1.8</td><td><span class="badge bpc">Polar covalent</span></td></tr>
+            <tr><td>ΔEN &gt; 1.8</td><td><span class="badge bic">Ionic character</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="bp-wrap">
+      <table class="bp-tbl">
+        <thead>
+          <tr>
+            <th>Bond</th>
+            <th>EN (atom 1)</th>
+            <th style="width:20px"></th>
+            <th>EN (atom 2)</th>
+            <th>ΔEN (auto)</th>
+            <th>Bond Type</th>
+            <th>Found in</th>
+          </tr>
+        </thead>
+        <tbody id="bpBody"></tbody>
+      </table>
+    </div>
+
+    <div class="callout" style="border-left-color:var(--amber);background:rgba(201,144,10,.07)">
+      <strong>Note on borderline bonds (ΔEN ≈ 0.4):</strong> A ΔEN right at 0.4 sits on the boundary between nonpolar and polar covalent. Chemists don't all agree on exactly where to draw the line — some treat C–H as nonpolar, others treat it as very weakly polar. What matters is recognizing that a bond at exactly 0.4 is not clearly one or the other. The C–H bond in CH₄ is the main example in this worksheet. Even though it has a small ΔEN, the 3D arrangement of CH₄ still plays a role in whether the molecule as a whole is polar — so it is worth paying attention to rather than ignoring it entirely.
+    </div>
+
+    <div class="question">
+      <span class="q-lbl">Q 1.1</span>
+      <div class="q-text">Which bond in the table has the <strong>largest ΔEN</strong> (difference in electronegativity)? Which has the <strong>smallest ΔEN</strong>? In your own words, what does a larger ΔEN mean about how the electrons are shared between the two atoms?</div>
+      <textarea class="ans" id="q11" rows="2" placeholder="The largest ΔEN (difference in electronegativity) is the ___ bond because… A larger ΔEN means the electrons are…"></textarea>
+    </div>
+
+    <!-- BOND LABELING PRACTICE -->
+    <div class="practice-card" id="pracBond">
+      <div class="pc-head">
+        <span class="pc-formula">H—Cl</span>
+        <span class="pc-name">Bond diagram labeling practice</span>
+        <span class="pc-geo">EN(H) = 2.1 · EN(Cl) = 3.0</span>
+      </div>
+      <div class="pc-body-v2">
+        <div class="pc-overlay-hint">Draw directly on the diagram. Label each atom with its partial charge (<strong>δ+</strong> or <strong>δ−</strong>), then draw the dipole arrow below the bond — tail at δ+, arrowhead pointing toward δ−. The dipole arrow should have a <strong>⊕</strong> (crosshair) at the tail end.</div>
+        <div class="toolbar" id="tb-pracBond">
+          <div class="tb-grp">
+            <button class="tb-btn act" id="pen-pracBond" onclick="setTool('pracBond','pen')" title="Pen">✏️</button>
+            <button class="tb-btn" id="era-pracBond" onclick="setTool('pracBond','eraser')" title="Eraser">⬜</button>
+          </div>
+          <div class="tb-sep"></div>
+          <div class="tb-grp">
+            <button class="sz-btn act" id="sz1-pracBond" onclick="setSize('pracBond',2,this)"><div class="sz-dot" style="width:3px;height:3px"></div></button>
+            <button class="sz-btn" id="sz2-pracBond" onclick="setSize('pracBond',5,this)"><div class="sz-dot" style="width:6px;height:6px"></div></button>
+            <button class="sz-btn" id="sz3-pracBond" onclick="setSize('pracBond',10,this)"><div class="sz-dot" style="width:10px;height:10px"></div></button>
+          </div>
+          <div class="tb-sep"></div>
+          <div class="tb-grp">
+            <div class="sw sel" style="background:#7b2fa8" onclick="setColor('pracBond','#7b2fa8',this)" title="Purple — match diagram style"></div>
+            <div class="sw" style="background:#d94f2b" onclick="setColor('pracBond','#d94f2b',this)" title="Coral"></div>
+            <div class="sw" style="background:#1a1040" onclick="setColor('pracBond','#1a1040',this)" title="Ink"></div>
+          </div>
+          <div class="tb-sep"></div>
+          <div class="tb-grp">
+            <button class="tb-btn" onclick="undoCanvas('pracBond')" title="Undo">↩️</button>
+            <button class="tb-btn" onclick="clearCanvas('pracBond')" title="Clear">🗑️</button>
+          </div>
+        </div>
+        <div class="pc-overlay-wrap" id="wrap-pracBond">
+          <svg viewBox="0 0 500 260" xmlns="http://www.w3.org/2000/svg" class="pc-overlay-svg">
+            <rect width="500" height="260" fill="#fff"/>
+
+            <!-- Instruction label at top -->
+            <text x="250" y="28" text-anchor="middle" font-family="DM Mono,monospace" font-size="12" fill="#5b3fa0" font-weight="700">Add δ+ and δ− labels, then draw the dipole arrow below the bond</text>
+
+            <!-- Bond line -->
+            <line x1="195" y1="110" x2="305" y2="110" stroke="#7b2fa8" stroke-width="5" stroke-linecap="round"/>
+
+            <!-- H atom -->
+            <text x="152" y="124" text-anchor="middle" font-family="serif" font-size="60" font-weight="700" fill="#7b2fa8">H</text>
+
+            <!-- Cl atom -->
+            <text x="348" y="124" text-anchor="middle" font-family="serif" font-size="60" font-weight="700" fill="#7b2fa8">Cl</text>
+
+            <!-- EN values below atoms -->
+            <text x="152" y="160" text-anchor="middle" font-family="DM Mono,monospace" font-size="12" fill="#888">EN = 2.1</text>
+            <text x="348" y="160" text-anchor="middle" font-family="DM Mono,monospace" font-size="12" fill="#888">EN = 3.0</text>
+
+            <!-- Dashed placeholder for dipole arrow region -->
+            <line x1="152" y1="205" x2="348" y2="205" stroke="#ddd" stroke-width="1.5" stroke-dasharray="6,4"/>
+            <text x="250" y="222" text-anchor="middle" font-family="DM Mono,monospace" font-size="11" fill="#ccc">draw dipole arrow here</text>
+
+            <!-- δ placeholder hints (very light, students replace with real labels) -->
+            <text x="152" y="72" text-anchor="middle" font-family="DM Mono,monospace" font-size="14" fill="#e8e0f0">δ?</text>
+            <text x="348" y="72" text-anchor="middle" font-family="DM Mono,monospace" font-size="14" fill="#e8e0f0">δ?</text>
+          </svg>
+          <canvas id="canvas-pracBond"></canvas>
+          <div class="cvs-ph" id="ph-pracBond"><div class="cvs-ph-txt" style="color:#7b2fa8;opacity:.5">Label δ+/δ− and draw dipole arrow</div></div>
+        </div>
+        <div class="pc-questions">
+          <div class="pc-q">
+            <span class="pc-qlbl">Which atom is δ+ and which is δ−?</span>
+            <textarea class="ans" id="qBond1" rows="1" placeholder="H is δ___ because… Cl is δ___ because…"></textarea>
+          </div>
+          <div class="pc-q">
+            <span class="pc-qlbl">Which direction does the dipole arrow point, and why?</span>
+            <textarea class="ans" id="qBond2" rows="2" placeholder="The arrow points from ___ toward ___ because…"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NONPOLAR BOND LABELING PRACTICE -->
+    <div class="practice-card" id="pracBond2">
+      <div class="pc-head">
+        <span class="pc-formula">Cl—Cl</span>
+        <span class="pc-name">Bond diagram labeling practice</span>
+        <span class="pc-geo">EN(Cl) = 3.0 · EN(Cl) = 3.0</span>
+      </div>
+      <div class="pc-body-v2">
+        <div class="pc-overlay-hint">Look at the EN values for both atoms. Before drawing anything, decide: does this bond need partial charge labels or a dipole arrow?</div>
+        <div class="toolbar" id="tb-pracBond2">
+          <div class="tb-grp">
+            <button class="tb-btn act" id="pen-pracBond2" onclick="setTool('pracBond2','pen')" title="Pen">✏️</button>
+            <button class="tb-btn" id="era-pracBond2" onclick="setTool('pracBond2','eraser')" title="Eraser">⬜</button>
+          </div>
+          <div class="tb-sep"></div>
+          <div class="tb-grp">
+            <button class="sz-btn act" id="sz1-pracBond2" onclick="setSize('pracBond2',2,this)"><div class="sz-dot" style="width:3px;height:3px"></div></button>
+            <button class="sz-btn" id="sz2-pracBond2" onclick="setSize('pracBond2',5,this)"><div class="sz-dot" style="width:6px;height:6px"></div></button>
+            <button class="sz-btn" id="sz3-pracBond2" onclick="setSize('pracBond2',10,this)"><div class="sz-dot" style="width:10px;height:10px"></div></button>
+          </div>
+          <div class="tb-sep"></div>
+          <div class="tb-grp">
+            <div class="sw sel" style="background:#7b2fa8" onclick="setColor('pracBond2','#7b2fa8',this)" title="Purple"></div>
+            <div class="sw" style="background:#d94f2b" onclick="setColor('pracBond2','#d94f2b',this)" title="Coral"></div>
+            <div class="sw" style="background:#1a1040" onclick="setColor('pracBond2','#1a1040',this)" title="Ink"></div>
+          </div>
+          <div class="tb-sep"></div>
+          <div class="tb-grp">
+            <button class="tb-btn" onclick="undoCanvas('pracBond2')" title="Undo">↩️</button>
+            <button class="tb-btn" onclick="clearCanvas('pracBond2')" title="Clear">🗑️</button>
+          </div>
+        </div>
+        <div class="pc-overlay-wrap" id="wrap-pracBond2">
+          <svg viewBox="0 0 500 260" xmlns="http://www.w3.org/2000/svg" class="pc-overlay-svg">
+            <rect width="500" height="260" fill="#fff"/>
+            <text x="250" y="28" text-anchor="middle" font-family="DM Mono,monospace" font-size="12" fill="#5b3fa0" font-weight="700">Do partial charges and a dipole arrow belong on this bond?</text>
+            <!-- Bond line -->
+            <line x1="195" y1="110" x2="305" y2="110" stroke="#7b2fa8" stroke-width="5" stroke-linecap="round"/>
+            <!-- Cl atoms -->
+            <text x="152" y="124" text-anchor="middle" font-family="serif" font-size="60" font-weight="700" fill="#7b2fa8">Cl</text>
+            <text x="348" y="124" text-anchor="middle" font-family="serif" font-size="60" font-weight="700" fill="#7b2fa8">Cl</text>
+            <!-- EN values -->
+            <text x="152" y="160" text-anchor="middle" font-family="DM Mono,monospace" font-size="12" fill="#888">EN = 3.0</text>
+            <text x="348" y="160" text-anchor="middle" font-family="DM Mono,monospace" font-size="12" fill="#888">EN = 3.0</text>
+            <!-- Dashed placeholder for dipole arrow region -->
+            <line x1="152" y1="205" x2="348" y2="205" stroke="#ddd" stroke-width="1.5" stroke-dasharray="6,4"/>
+            <text x="250" y="222" text-anchor="middle" font-family="DM Mono,monospace" font-size="11" fill="#ccc">draw here if needed</text>
+            <!-- δ placeholder hints -->
+            <text x="152" y="72" text-anchor="middle" font-family="DM Mono,monospace" font-size="14" fill="#e8e0f0">δ?</text>
+            <text x="348" y="72" text-anchor="middle" font-family="DM Mono,monospace" font-size="14" fill="#e8e0f0">δ?</text>
+          </svg>
+          <canvas id="canvas-pracBond2"></canvas>
+          <div class="cvs-ph" id="ph-pracBond2"><div class="cvs-ph-txt" style="color:#7b2fa8;opacity:.5">Draw only if needed</div></div>
+        </div>
+        <div class="pc-questions">
+          <div class="pc-q">
+            <span class="pc-qlbl">Does this bond need partial charge labels (δ+/δ−)? Why or why not?</span>
+            <textarea class="ans" id="qBond3" rows="2" placeholder="This bond does / does not need partial charges because…"></textarea>
+          </div>
+          <div class="pc-q">
+            <span class="pc-qlbl">Does this bond have a dipole arrow? Explain.</span>
+            <textarea class="ans" id="qBond4" rows="2" placeholder="There is / is not a dipole arrow because the ΔEN is…"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div></div>
+</div>
+<div class="sec" id="sec2">
+  <div class="sec-h" onclick="toggleSec(this)">
+    <span class="sec-num">02</span>
+    <span class="sec-title">Dipole Vectors &amp; Cancellation</span>
+    <span class="sec-chev">▼</span>
+  </div>
+  <div class="sec-body"><div class="sec-in">
+
+    <div class="callout">
+      A <strong>dipole vector</strong> is an arrow drawn on a polar bond. It points <strong>toward the more electronegative atom</strong> (the δ− end) and its length represents how strong the pull is. Like any vector, two dipoles can <em>cancel each other out</em> if they are equal in magnitude and point in exactly opposite directions — leaving no net charge separation. If they don't fully cancel, the molecule has a <strong>net dipole</strong> and is polar.
+    </div>
+
+    <!-- CONCEPT: What is a dipole vector -->
+    <div class="concept-card">
+      <div class="cc-head">What a dipole arrow represents</div>
+      <div class="cc-body">
+        <div class="cc-text">
+          <p>When two atoms share electrons unequally, the more electronegative atom pulls the electron density toward itself — creating a <strong>partial negative charge (δ−)</strong> on that end and a <strong>partial positive charge (δ+)</strong> on the other.</p>
+          <p>We show this as an arrow: <strong>tail at δ+, head at δ−</strong>. The arrow has two properties that matter:</p>
+          <ul class="cc-list">
+            <li><strong>Direction</strong> — which atom is pulling harder</li>
+            <li><strong>Magnitude</strong> — how hard it is pulling (proportional to ΔEN; larger ΔEN = longer, more significant arrow)</li>
+          </ul>
+        </div>
+        <div class="cc-fig">
+          <svg viewBox="0 0 280 145" xmlns="http://www.w3.org/2000/svg" class="cc-svg">
+            <defs>
+              <marker id="hf-arrow" markerWidth="8" markerHeight="8" refX="7.5" refY="4" orient="auto">
+                <polygon points="0,0 8,4 0,8" fill="#d94f2b"/>
+              </marker>
+            </defs>
+            <!-- bond line -->
+            <line x1="82" y1="68" x2="198" y2="68" stroke="#444" stroke-width="3" stroke-linecap="round"/>
+            <!-- H atom -->
+            <circle cx="55" cy="68" r="28" fill="#3182ce" stroke="#1a5fa8" stroke-width="1.5"/>
+            <text x="55" y="75" text-anchor="middle" font-family="DM Mono,monospace" font-size="20" font-weight="700" fill="#fff">H</text>
+            <!-- F atom -->
+            <circle cx="225" cy="68" r="28" fill="#2f855a" stroke="#1a5932" stroke-width="1.5"/>
+            <text x="225" y="75" text-anchor="middle" font-family="DM Mono,monospace" font-size="20" font-weight="700" fill="#fff">F</text>
+            <!-- δ+ above H (superscript style) -->
+            <text x="52" y="30" text-anchor="middle" font-family="DM Mono,monospace" font-size="15" fill="#5b3fa0" font-weight="700">δ</text>
+            <text x="63" y="24" text-anchor="middle" font-family="DM Mono,monospace" font-size="11" fill="#5b3fa0" font-weight="700">+</text>
+            <!-- δ− above F (superscript style) -->
+            <text x="218" y="30" text-anchor="middle" font-family="DM Mono,monospace" font-size="15" fill="#5b3fa0" font-weight="700">δ</text>
+            <text x="229" y="24" text-anchor="middle" font-family="DM Mono,monospace" font-size="11" fill="#5b3fa0" font-weight="700">−</text>
+            <!-- Dipole arrow below bond: + crosshair at H end, arrowhead at F end -->
+            <line x1="78" y1="95" x2="203" y2="95" stroke="#d94f2b" stroke-width="2.5" marker-end="url(#hf-arrow)"/>
+            <!-- + crosshair at tail (H side) -->
+            <line x1="78" y1="89" x2="78" y2="101" stroke="#d94f2b" stroke-width="2"/>
+            <line x1="72" y1="95" x2="84" y2="95" stroke="#d94f2b" stroke-width="2"/>
+            <!-- EN labels -->
+            <text x="55" y="115" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="#1a5fa8">EN = 2.1</text>
+            <text x="225" y="115" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="#1a5932">EN = 4.0</text>
+            <!-- ΔEN label -->
+            <text x="140" y="135" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#5b3fa0" font-weight="700">ΔEN = 1.9 → long, strong arrow</text>
+          </svg>
+          <div class="cc-fig-cap">H–F: electrons pulled strongly toward F. Arrow points H → F (δ+ side = crosshair tail).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WORKED EXAMPLE 1: CO2 -->
+    <div class="worked-ex">
+      <div class="we-head">
+        <span class="we-badge we-np">Worked Example — Nonpolar molecule</span>
+        <span class="we-formula">CO₂</span>
+        <span class="we-geo">Linear · 180°</span>
+      </div>
+      <div class="we-body">
+        <div class="we-fig">
+          <svg viewBox="0 0 280 130" xmlns="http://www.w3.org/2000/svg" class="we-svg">
+            <defs>
+              <marker id="dh1" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+                <polygon points="0,0 7,3.5 0,7" fill="#d94f2b"/>
+              </marker>
+            </defs>
+            <text x="140" y="10" text-anchor="middle" font-family="DM Mono,monospace" font-size="7.5" fill="#888" font-style="italic">Lone pairs not shown</text>
+            <!-- Double bonds -->
+            <line x1="78" y1="60" x2="118" y2="60" stroke="#555" stroke-width="2.2"/>
+            <line x1="78" y1="70" x2="118" y2="70" stroke="#555" stroke-width="2.2"/>
+            <line x1="162" y1="60" x2="202" y2="60" stroke="#555" stroke-width="2.2"/>
+            <line x1="162" y1="70" x2="202" y2="70" stroke="#555" stroke-width="2.2"/>
+            <!-- Atoms -->
+            <circle cx="55" cy="65" r="22" fill="#c53030" stroke="#8b1a1a" stroke-width="1.5"/>
+            <text x="55" y="70" text-anchor="middle" font-family="DM Mono,monospace" font-size="14" font-weight="700" fill="#fff">O</text>
+            <circle cx="140" cy="65" r="20" fill="#4a5568" stroke="#2d3748" stroke-width="1.5"/>
+            <text x="140" y="70" text-anchor="middle" font-family="DM Mono,monospace" font-size="14" font-weight="700" fill="#fff">C</text>
+            <circle cx="225" cy="65" r="22" fill="#c53030" stroke="#8b1a1a" stroke-width="1.5"/>
+            <text x="225" y="70" text-anchor="middle" font-family="DM Mono,monospace" font-size="14" font-weight="700" fill="#fff">O</text>
+            <!-- Dipole arrows (above atoms) with + crosshair at δ+ tail -->
+            <line x1="118" y1="38" x2="84" y2="38" stroke="#d94f2b" stroke-width="2.5" marker-end="url(#dh1)"/>
+            <!-- + at tail of left arrow (C side, x=118) -->
+            <line x1="118" y1="32" x2="118" y2="44" stroke="#d94f2b" stroke-width="1.8"/>
+            <line x1="112" y1="38" x2="124" y2="38" stroke="#d94f2b" stroke-width="1.8"/>
+            <line x1="162" y1="38" x2="196" y2="38" stroke="#d94f2b" stroke-width="2.5" marker-end="url(#dh1)"/>
+            <!-- + at tail of right arrow (C side, x=162) -->
+            <line x1="162" y1="32" x2="162" y2="44" stroke="#d94f2b" stroke-width="1.8"/>
+            <line x1="156" y1="38" x2="168" y2="38" stroke="#d94f2b" stroke-width="1.8"/>
+            <!-- delta labels -->
+            <text x="55" y="105" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#d94f2b" font-weight="700">δ−</text>
+            <text x="140" y="105" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#276749" font-weight="700">δ+</text>
+            <text x="225" y="105" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#d94f2b" font-weight="700">δ−</text>
+            <!-- Cancel label -->
+            <text x="140" y="22" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#5b3fa0" font-weight="700">← equal &amp; opposite →</text>
+            <!-- Result -->
+            <rect x="60" y="115" width="160" height="13" rx="3" fill="#e8f8ef"/>
+            <text x="140" y="125" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#276749" font-weight="700">Dipoles CANCEL → NONPOLAR molecule</text>
+          </svg>
+        </div>
+        <div class="we-steps">
+          <div class="we-step"><span class="ws-n">1</span><span>Both C=O bonds are polar (ΔEN = 1.0). Each has a dipole arrow pointing from C toward O.</span></div>
+          <div class="we-step"><span class="ws-n">2</span><span>CO₂ is <strong>linear</strong> — the two arrows point in exactly opposite directions along the same axis.</span></div>
+          <div class="we-step"><span class="ws-n">3</span><span>Equal magnitude + opposite direction = the vectors <strong>cancel completely</strong>. Net dipole = 0. CO₂ is <strong>nonpolar</strong> despite having polar bonds.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WORKED EXAMPLE 2: H2O -->
+    <div class="worked-ex">
+      <div class="we-head">
+        <span class="we-badge we-p">Worked Example — Polar molecule</span>
+        <span class="we-formula">H₂O</span>
+        <span class="we-geo">Bent · ~104.5°</span>
+      </div>
+      <div class="we-body">
+        <div class="we-fig">
+          <svg viewBox="0 0 240 170" xmlns="http://www.w3.org/2000/svg" class="we-svg">
+            <defs>
+              <marker id="dh2" markerWidth="7" markerHeight="7" refX="6.5" refY="3.5" orient="auto">
+                <polygon points="0,0 7,3.5 0,7" fill="#d94f2b"/>
+              </marker>
+              <marker id="dh3" markerWidth="8" markerHeight="8" refX="7.5" refY="4" orient="auto">
+                <polygon points="0,0 8,4 0,8" fill="#1a7fc4"/>
+              </marker>
+            </defs>
+            <!-- Note: lone pairs not shown (model kit representation) -->
+            <text x="120" y="12" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#888" font-style="italic">Lone pairs not shown</text>
+            <!-- Bonds -->
+            <line x1="110" y1="80" x2="55" y2="120" stroke="#555" stroke-width="2.5"/>
+            <line x1="110" y1="80" x2="165" y2="120" stroke="#555" stroke-width="2.5"/>
+            <!-- Atoms -->
+            <circle cx="110" cy="80" r="22" fill="#c53030" stroke="#8b1a1a" stroke-width="1.5"/>
+            <text x="110" y="86" text-anchor="middle" font-family="DM Mono,monospace" font-size="14" font-weight="700" fill="#fff">O</text>
+            <circle cx="43" cy="126" r="18" fill="#3182ce" stroke="#1a5fa8" stroke-width="1.5"/>
+            <text x="43" y="131" text-anchor="middle" font-family="DM Mono,monospace" font-size="13" font-weight="700" fill="#fff">H</text>
+            <circle cx="177" cy="126" r="18" fill="#3182ce" stroke="#1a5fa8" stroke-width="1.5"/>
+            <text x="177" y="131" text-anchor="middle" font-family="DM Mono,monospace" font-size="13" font-weight="700" fill="#fff">H</text>
+            <!-- Bond dipole arrows: parallel to bonds, offset outward, tail at H (δ+) end -->
+            <!-- Left arrow: tail(57,106) → head(84,88), offset upper-left of bond -->
+            <line x1="57" y1="106" x2="84" y2="88" stroke="#d94f2b" stroke-width="2.5" marker-end="url(#dh2)"/>
+            <line x1="57" y1="100" x2="57" y2="112" stroke="#d94f2b" stroke-width="1.8"/>
+            <line x1="51" y1="106" x2="63" y2="106" stroke="#d94f2b" stroke-width="1.8"/>
+            <!-- Right arrow: tail(163,106) → head(136,88), offset upper-right of bond -->
+            <line x1="163" y1="106" x2="136" y2="88" stroke="#d94f2b" stroke-width="2.5" marker-end="url(#dh2)"/>
+            <line x1="163" y1="100" x2="163" y2="112" stroke="#d94f2b" stroke-width="1.8"/>
+            <line x1="157" y1="106" x2="169" y2="106" stroke="#d94f2b" stroke-width="1.8"/>
+            <!-- Net dipole arrow (blue) — straight up toward O, full dipole-arrow style -->
+            <line x1="110" y1="148" x2="110" y2="105" stroke="#1a7fc4" stroke-width="3" marker-end="url(#dh3)"/>
+            <!-- + crosshair at tail of net dipole -->
+            <line x1="110" y1="142" x2="110" y2="154" stroke="#1a7fc4" stroke-width="2"/>
+            <line x1="104" y1="148" x2="116" y2="148" stroke="#1a7fc4" stroke-width="2"/>
+            <text x="125" y="152" text-anchor="start" font-family="DM Mono,monospace" font-size="8" fill="#1a7fc4" font-weight="700">net dipole</text>
+            <!-- delta labels -->
+            <text x="43" y="110" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#276749" font-weight="700">δ+</text>
+            <text x="177" y="110" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#276749" font-weight="700">δ+</text>
+            <text x="110" y="62" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#d94f2b" font-weight="700">δ−</text>
+          </svg>
+        </div>
+        <div class="we-steps">
+          <div class="we-step"><span class="ws-n">1</span><span>Both O–H bonds are polar (ΔEN = 1.4). Each has a dipole arrow pointing from H toward O.</span></div>
+          <div class="we-step"><span class="ws-n">2</span><span>H₂O is <strong>bent</strong> — O has two lone pairs (not shown on model kit diagram) that push the bonds together. The arrows are <em>not</em> pointing in exactly opposite directions.</span></div>
+          <div class="we-step"><span class="ws-n">3</span><span>The arrows partially cancel in the horizontal direction, but both have an upward component — they <strong>add together</strong> pointing toward O. Net dipole ≠ 0. H₂O is <strong>polar</strong>.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRACTICE SECTION -->
+    <div class="practice-head">Now you try — draw the dipole arrows</div>
+    <div class="practice-sub">For each molecule below, draw a dipole arrow on each polar bond. Then decide: do the arrows cancel? Is the molecule polar or nonpolar?</div>
+
+    <!-- Practice 1: HCl -->
+    <div class="practice-card" id="prac1">
+      <div class="pc-head">
+        <span class="pc-formula">HCl</span>
+        <span class="pc-name">Hydrogen chloride</span>
+        <span class="pc-geo">Linear — 1 bond</span>
+      </div>
+      <div class="pc-body-v2">
+        <div class="pc-overlay-hint">Draw directly on the molecule — use <span style="color:var(--coral);font-weight:700">coral red</span> for dipole arrows</div>
+        <div class="toolbar" id="tb-p1">
+          <div class="tb-grp"><button class="tb-btn act" id="pen-p1" onclick="setTool('p1','pen')" title="Pen">✏️</button><button class="tb-btn" id="era-p1" onclick="setTool('p1','eraser')" title="Eraser">⬜</button></div>
+          <div class="tb-sep"></div>
+          <div class="tb-grp">
+            <button class="sz-btn act" id="sz1-p1" onclick="setSize('p1',2,this)"><div class="sz-dot" style="width:3px;height:3px"></div></button>
+            <button class="sz-btn" id="sz2-p1" onclick="setSize('p1',5,this)"><div class="sz-dot" style="width:6px;height:6px"></div></button>
+            <button class="sz-btn" id="sz3-p1" onclick="setSize('p1',10,this)"><div class="sz-dot" style="width:10px;height:10px"></div></button>
+          </div>
+          <div class="tb-sep"></div>
+          <div class="tb-grp">
+            <div class="sw sel" style="background:#d94f2b" onclick="setColor('p1','#d94f2b',this)" title="Coral — dipole arrows"></div>
+            <div class="sw" style="background:#1a1040" onclick="setColor('p1','#1a1040',this)" title="Ink"></div>
+            <div class="sw" style="background:#1a7fc4" onclick="setColor('p1','#1a7fc4',this)" title="Blue — net dipole"></div>
+          </div>
+          <div class="tb-sep"></div>
+          <div class="tb-grp"><button class="tb-btn" onclick="undoCanvas('p1')" title="Undo">↩️</button><button class="tb-btn" onclick="clearCanvas('p1')" title="Clear">🗑️</button></div>
+        </div>
+        <div class="pc-overlay-wrap" id="wrap-p1">
+          <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" class="pc-overlay-svg">
+            <rect width="500" height="200" fill="#fefcff"/>
+            <!-- Bond -->
+            <line x1="175" y1="100" x2="325" y2="100" stroke="#555" stroke-width="3" stroke-linecap="round"/>
+            <!-- Atoms -->
+            <circle cx="140" cy="100" r="38" fill="#3182ce" stroke="#1a5fa8" stroke-width="2"/>
+            <text x="140" y="107" text-anchor="middle" font-family="DM Mono,monospace" font-size="22" font-weight="700" fill="#fff">H</text>
+            <circle cx="360" cy="100" r="38" fill="#2c7a7b" stroke="#1a5252" stroke-width="2"/>
+            <text x="360" y="107" text-anchor="middle" font-family="DM Mono,monospace" font-size="20" font-weight="700" fill="#fff">Cl</text>
+            <!-- EN labels -->
+            <text x="140" y="158" text-anchor="middle" font-family="DM Mono,monospace" font-size="13" fill="#276749" font-weight="600">EN = 2.1</text>
+            <text x="360" y="158" text-anchor="middle" font-family="DM Mono,monospace" font-size="13" fill="#276749" font-weight="600">EN = 3.0</text>
+            <!-- Instruction -->
+            <text x="250" y="30" text-anchor="middle" font-family="DM Mono,monospace" font-size="12" fill="#5b3fa0" font-weight="700">Draw your dipole arrow on the bond · ΔEN = ?</text>
+            <!-- delta placeholders (light) -->
+            <text x="140" y="76" text-anchor="middle" font-family="DM Mono,monospace" font-size="14" fill="#ccc">δ?</text>
+            <text x="360" y="76" text-anchor="middle" font-family="DM Mono,monospace" font-size="14" fill="#ccc">δ?</text>
+          </svg>
+          <canvas id="canvas-p1"></canvas>
+          <div class="cvs-ph" id="ph-p1"><div class="cvs-ph-txt" style="color:var(--coral);opacity:.6">Draw dipole arrow →</div></div>
+        </div>
+        <div class="pc-questions">
+          <div class="pc-q">
+            <span class="pc-qlbl">Do the dipoles cancel?</span>
+            <div class="radio-row">
+              <label class="r-opt"><input type="radio" name="pcancel-p1" value="yes"> Yes</label>
+              <label class="r-opt"><input type="radio" name="pcancel-p1" value="no"> No</label>
+              <label class="r-opt"><input type="radio" name="pcancel-p1" value="only1"> Only one bond — N/A</label>
+            </div>
+          </div>
+          <div class="pc-q">
+            <span class="pc-qlbl">Molecular polarity</span>
+            <div class="radio-row">
+              <label class="r-opt"><input type="radio" name="ppolar-p1" value="polar"> 🔴 Polar</label>
+              <label class="r-opt"><input type="radio" name="ppolar-p1" value="nonpolar"> 🔵 Nonpolar</label>
+            </div>
+          </div>
+          <div class="pc-q">
+            <span class="pc-qlbl">Explain your reasoning</span>
+            <textarea class="ans" id="pexp-p1" rows="2" placeholder="HCl is ___ because…"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Practice 2: BF3 -->
+    <div class="practice-card" id="prac2">
+      <div class="pc-head">
+        <span class="pc-formula">BF₃</span>
+        <span class="pc-name">Boron trifluoride</span>
+        <span class="pc-geo">Trigonal planar · 120°</span>
+      </div>
+      <div class="pc-body-v2">
+        <div class="pc-overlay-hint">Draw directly on the molecule — use <span style="color:var(--coral);font-weight:700">coral red</span> for dipole arrows. Draw one arrow on each of the 3 B–F bonds.</div>
+        <div class="toolbar" id="tb-p2">
+          <div class="tb-grp"><button class="tb-btn act" id="pen-p2" onclick="setTool('p2','pen')" title="Pen">✏️</button><button class="tb-btn" id="era-p2" onclick="setTool('p2','eraser')" title="Eraser">⬜</button></div>
+          <div class="tb-sep"></div>
+          <div class="tb-grp">
+            <button class="sz-btn act" id="sz1-p2" onclick="setSize('p2',2,this)"><div class="sz-dot" style="width:3px;height:3px"></div></button>
+            <button class="sz-btn" id="sz2-p2" onclick="setSize('p2',5,this)"><div class="sz-dot" style="width:6px;height:6px"></div></button>
+            <button class="sz-btn" id="sz3-p2" onclick="setSize('p2',10,this)"><div class="sz-dot" style="width:10px;height:10px"></div></button>
+          </div>
+          <div class="tb-sep"></div>
+          <div class="tb-grp">
+            <div class="sw sel" style="background:#d94f2b" onclick="setColor('p2','#d94f2b',this)" title="Coral — dipole arrows"></div>
+            <div class="sw" style="background:#1a1040" onclick="setColor('p2','#1a1040',this)" title="Ink"></div>
+            <div class="sw" style="background:#1a7fc4" onclick="setColor('p2','#1a7fc4',this)" title="Blue — net dipole"></div>
+          </div>
+          <div class="tb-sep"></div>
+          <div class="tb-grp"><button class="tb-btn" onclick="undoCanvas('p2')" title="Undo">↩️</button><button class="tb-btn" onclick="clearCanvas('p2')" title="Clear">🗑️</button></div>
+        </div>
+        <div class="pc-overlay-wrap" id="wrap-p2">
+          <svg viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg" class="pc-overlay-svg">
+            <rect width="500" height="320" fill="#fefcff"/>
+            <!-- Bonds: B at (250,175), all 3 bonds length 140, 120° apart -->
+            <!-- Top bond: B→F1 straight up -->
+            <line x1="250" y1="139" x2="250" y2="63" stroke="#555" stroke-width="3" stroke-linecap="round"/>
+            <!-- Lower-right bond: B→F2 at 30° below horizontal -->
+            <line x1="281" y1="193" x2="347" y2="231" stroke="#555" stroke-width="3" stroke-linecap="round"/>
+            <!-- Lower-left bond: B→F3 at 150° below horizontal -->
+            <line x1="219" y1="193" x2="153" y2="231" stroke="#555" stroke-width="3" stroke-linecap="round"/>
+            <!-- Center atom B -->
+            <circle cx="250" cy="175" r="36" fill="#c05621" stroke="#7b3000" stroke-width="2"/>
+            <text x="250" y="183" text-anchor="middle" font-family="DM Mono,monospace" font-size="22" font-weight="700" fill="#fff">B</text>
+            <!-- F atoms: all equidistant from B -->
+            <circle cx="250" cy="35" r="28" fill="#2f855a" stroke="#1a5932" stroke-width="2"/>
+            <text x="250" y="43" text-anchor="middle" font-family="DM Mono,monospace" font-size="20" font-weight="700" fill="#fff">F</text>
+            <circle cx="371" cy="245" r="28" fill="#2f855a" stroke="#1a5932" stroke-width="2"/>
+            <text x="371" y="253" text-anchor="middle" font-family="DM Mono,monospace" font-size="20" font-weight="700" fill="#fff">F</text>
+            <circle cx="129" cy="245" r="28" fill="#2f855a" stroke="#1a5932" stroke-width="2"/>
+            <text x="129" y="253" text-anchor="middle" font-family="DM Mono,monospace" font-size="20" font-weight="700" fill="#fff">F</text>
+            <!-- EN labels — dark ink so they stand out against white background -->
+            <text x="250" y="14" text-anchor="middle" font-family="DM Mono,monospace" font-size="11" fill="#1a1040">EN(F) = 4.0</text>
+            <text x="395" y="268" text-anchor="middle" font-family="DM Mono,monospace" font-size="11" fill="#1a1040">EN(F) = 4.0</text>
+            <text x="105" y="268" text-anchor="middle" font-family="DM Mono,monospace" font-size="11" fill="#1a1040">EN(F) = 4.0</text>
+            <text x="250" y="205" text-anchor="middle" font-family="DM Mono,monospace" font-size="11" fill="#1a1040">EN(B) = 2.0</text>
+            <!-- Bond angle label -->
+            <text x="250" y="305" text-anchor="middle" font-family="DM Mono,monospace" font-size="12" fill="#5b3fa0" font-weight="700">120° between each bond — draw 3 dipole arrows (B → F)</text>
+          </svg>
+          <canvas id="canvas-p2"></canvas>
+          <div class="cvs-ph" id="ph-p2"><div class="cvs-ph-txt" style="color:var(--coral);opacity:.6">Draw 3 dipole arrows →</div></div>
+        </div>
+        <div class="pc-questions">
+          <div class="pc-q">
+            <span class="pc-qlbl">Do the dipoles cancel?</span>
+            <div class="radio-row">
+              <label class="r-opt"><input type="radio" name="pcancel-p2" value="yes"> Yes</label>
+              <label class="r-opt"><input type="radio" name="pcancel-p2" value="no"> No</label>
+            </div>
+          </div>
+          <div class="pc-q">
+            <span class="pc-qlbl">Molecular polarity</span>
+            <div class="radio-row">
+              <label class="r-opt"><input type="radio" name="ppolar-p2" value="polar"> 🔴 Polar</label>
+              <label class="r-opt"><input type="radio" name="ppolar-p2" value="nonpolar"> 🔵 Nonpolar</label>
+            </div>
+          </div>
+          <div class="pc-q">
+            <span class="pc-qlbl">Explain your reasoning</span>
+            <textarea class="ans" id="pexp-p2" rows="2" placeholder="BF₃ is ___ because the three dipoles…"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div></div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="sec" id="sec3">
+  <div class="sec-h" onclick="toggleSec(this)">
+    <span class="sec-num">03</span>
+    <span class="sec-title">Build Your Models</span>
+    <span class="sec-chev">▼</span>
+  </div>
+  <div class="sec-body"><div class="sec-in">
+
+    <div class="build-gate">
+      <div class="bg-top">
+        <div class="bg-title">📋 Build Your 5 Molecules</div>
+        <a href="https://phet.colorado.edu/sims/html/molecule-shapes/latest/molecule-shapes_all.html" target="_blank" class="phet-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.5" stroke="#fff" stroke-width="1.2"/><polygon points="6,4.5 12,8 6,11.5" fill="#fff"/></svg>
+          Open Molecule Shapes PhET
+        </a>
+        <div class="mol-chip-list" id="buildChips"></div>
+        <div class="bg-steps">
+          <div class="bg-step"><span class="sn">A</span><span>Open the <a href="https://phet.colorado.edu/sims/html/molecule-shapes/latest/molecule-shapes_all.html" target="_blank" class="phet-link">Molecule Shapes PhET simulation ↗</a> and use it alongside your <strong>model kit</strong>. Switch to <em>Real Molecules</em> mode and find each molecule in the dropdown — it shows the correct 3D shape, bond angles, and lone pair positions to guide your build.</span></div>
+          <div class="bg-step"><span class="sn">B</span><span>Build all 5 molecules with your model kit. Use PhET to check that the shape, bond count, and lone pair positions match before moving on.</span></div>
+          <div class="bg-step"><span class="sn">C</span><span>Once all 5 are built, <strong>raise your hand</strong>. Your teacher will verify your models and give you the unlock PIN to continue to Section 4.</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div></div>
+</div>
+
+<!-- SECTION 4 -->
+<div class="sec" id="sec4">
+  <div class="sec-h" onclick="toggleSec(this)">
+    <span class="sec-num">04</span>
+    <span class="sec-title">Map the Dipoles &amp; Determine Polarity</span>
+    <span class="sec-chev">▼</span>
+  </div>
+  <div class="sec-body"><div class="sec-in">
+
+    <div class="build-gate">
+      <div class="bg-top">
+        <div class="bg-title">🔒 Teacher Verification Required</div>
+        <div class="bg-steps">
+          <div class="bg-step"><span class="sn">↑</span><span>Complete Section 3 first — build all 5 molecules and have your teacher verify your models. They will give you the PIN to unlock this section and the rest of the worksheet.</span></div>
+        </div>
+      </div>
+      <div class="pin-gate" id="pinGate">
+        <span class="pin-lbl" id="pinLabel">🔒 Teacher PIN</span>
+        <input class="pin-in" id="pinInput" type="text" maxlength="8" placeholder="····" autocomplete="off" onkeydown="if(event.key==='Enter')unlockPIN()">
+        <button class="pin-btn" onclick="unlockPIN()">Unlock →</button>
+        <span class="pin-status" id="pinStatus"></span>
+        <span class="pin-locked-msg" id="pinMsg">Enter the PIN your teacher gives you after checking your models.</span>
+      </div>
+    </div>
+
+    <div class="callout" style="border-left-color:var(--sky);background:rgba(26,127,196,.06)">
+      <strong>⚠ Symmetry note:</strong> Some molecules look symmetrical when built with a model kit — because lone pairs are invisible on the physical model. For example, H₂O has two identical O–H bonds that appear symmetric, but the two lone pairs on oxygen push those bonds closer together, creating a <em>bent</em> shape that is <strong>not symmetrical</strong>. NH₃ similarly appears to have three identical bonds fanning out, but the lone pair above nitrogen gives it a <em>trigonal pyramidal</em> shape that is <strong>asymmetrical</strong>. Always consider lone pairs when deciding if a molecule is truly symmetrical.
+    </div>
+    <div id="sec4Content" class="sec4-locked">
+      <div class="pin-lock-overlay" id="sec4Overlay">
+        <div class="plo-inner">🔒 Enter the PIN above to unlock this section</div>
+      </div>
+      <div id="molCards"></div>
+<div class="callout" style="border-left-color:var(--coral);background:rgba(217,79,43,.06);margin-top:20px">
+      <strong>⚡ Challenge Molecule — CH₃Cl (Chloromethane)</strong><br>
+      This molecule looks similar to CH₄ — same tetrahedral geometry — but one hydrogen has been replaced by chlorine. Work through the steps below and think carefully about how that one substitution changes the answer.
+    </div>
+
+    <div class="mol-card" id="card-ch3cl">
+      <div class="mol-head">
+        <span class="mol-formula">CH₃Cl</span>
+        <span class="mol-name">Chloromethane</span>
+        <div class="mol-geo-wrap">
+          <span class="geo-lbl">Molecular Geometry</span>
+          <select class="geo-sel ss" id="geo-ch3cl"><option value="">— select —</option><option value="linear">Linear</option><option value="trigonal planar">Trigonal planar</option><option value="tetrahedral">Tetrahedral</option><option value="trigonal pyramidal">Trigonal pyramidal</option><option value="bent">Bent</option><option value="octahedral">Octahedral</option><option value="square pyramidal">Square pyramidal</option><option value="square planar">Square planar</option></select>
+          <span class="geo-lbl" style="margin-left:8px">Bond Angle</span>
+          <select class="geo-sel ss" id="ang-ch3cl"><option value="">— select —</option><option value="180°">180°</option><option value="120°">120°</option><option value="109.5°">109.5°</option><option value="107°">~107°</option><option value="104.5°">~104.5°</option><option value="90°">90°</option><option value="85° / 90°">85° / 90°</option></select>
+        </div>
+      </div>
+
+      <div class="ref-reveal shown" id="ref-ch3cl">
+        <div class="ref-hdr">
+          <span class="ref-icon">🔬</span>
+          <span class="ref-lbl">Reference — 3D Structure</span>
+          <span class="ref-sub">Work through the steps below</span>
+        </div>
+        <div class="ref-body">
+
+          <div class="mol-overlay-outer">
+            <div class="mol-overlay-hint">Draw directly on the diagram — use <span style="color:var(--coral);font-weight:700">coral red</span> for dipole arrows</div>
+            <div class="toolbar" id="tb-ch3cl">
+              <div class="tb-grp">
+                <button class="tb-btn act" id="pen-ch3cl" onclick="setTool('ch3cl','pen')" title="Pen">✏️</button>
+                <button class="tb-btn" id="era-ch3cl" onclick="setTool('ch3cl','eraser')" title="Eraser">⬜</button>
+              </div>
+              <div class="tb-sep"></div>
+              <div class="tb-grp">
+                <button class="sz-btn act" id="sz1-ch3cl" onclick="setSize('ch3cl',2,this)"><div class="sz-dot" style="width:3px;height:3px"></div></button>
+                <button class="sz-btn" id="sz2-ch3cl" onclick="setSize('ch3cl',5,this)"><div class="sz-dot" style="width:6px;height:6px"></div></button>
+                <button class="sz-btn" id="sz3-ch3cl" onclick="setSize('ch3cl',10,this)"><div class="sz-dot" style="width:10px;height:10px"></div></button>
+              </div>
+              <div class="tb-sep"></div>
+              <div class="tb-grp">
+                <div class="sw sel" style="background:#d94f2b" onclick="setColor('ch3cl','#d94f2b',this)" title="Coral — dipole arrows"></div>
+                <div class="sw" style="background:#1a7fc4" onclick="setColor('ch3cl','#1a7fc4',this)" title="Blue — net dipole"></div>
+                <div class="sw" style="background:#1a1040" onclick="setColor('ch3cl','#1a1040',this)" title="Ink"></div>
+                <div class="sw" style="background:#376348" onclick="setColor('ch3cl','#376348',this)" title="Green"></div>
+              </div>
+              <div class="tb-sep"></div>
+              <div class="tb-grp">
+                <button class="tb-btn" onclick="undoCanvas('ch3cl')" title="Undo">↩️</button>
+                <button class="tb-btn" onclick="clearCanvas('ch3cl')" title="Clear">🗑️</button>
+              </div>
+            </div>
+            <div class="mol-overlay-wrap" id="wrap-ch3cl">
+              <svg class="mol-overlay-svg" viewBox="0 0 260 205" xmlns="http://www.w3.org/2000/svg">
+<rect width="260" height="205" fill="#eeeaff" rx="6"/>
+<text x="130" y="16" text-anchor="middle" font-size="8" fill="#888" font-family="DM Mono,monospace" font-style="italic">Lone pairs not shown</text>
+<!-- Solid lines: top H (in-plane) and left H (in-plane) -->
+<line x1="130" y1="80" x2="130" y2="44" stroke="#444" stroke-width="2.5"/>
+<line x1="110" y1="108" x2="66" y2="161" stroke="#444" stroke-width="2.5"/>
+<!-- Filled wedge: center H coming toward viewer -->
+<polygon stroke="#333" stroke-width="1" stroke-linejoin="round" points="130,106 123,162 137,162" fill="#444"/>
+<!-- Hashed wedge: Cl going away from viewer -->
+<line x1="138.0" y1="108.3" x2="139.3" y2="106.8" stroke="#444" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="146.0" y1="116.6" x2="148.6" y2="113.6" stroke="#444" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="154.0" y1="124.9" x2="158.0" y2="120.4" stroke="#444" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="162.0" y1="133.2" x2="167.3" y2="127.2" stroke="#444" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="170.0" y1="141.5" x2="176.6" y2="134.0" stroke="#444" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="178.1" y1="149.9" x2="185.9" y2="140.8" stroke="#444" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="186.1" y1="158.2" x2="195.3" y2="147.6" stroke="#444" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="194.1" y1="166.5" x2="204.6" y2="154.4" stroke="#444" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="202.1" y1="174.8" x2="213.9" y2="161.2" stroke="#444" stroke-width="2.2" stroke-linecap="round"/>
+<!-- H atoms -->
+<circle cx="130" cy="28" r="16" fill="#6ab4d8" stroke="#3888b0" stroke-width="1.5"/>
+<text x="130" y="33" text-anchor="middle" font-family="DM Serif Display,serif" font-size="14" fill="white">H</text>
+<circle cx="52" cy="168" r="16" fill="#6ab4d8" stroke="#3888b0" stroke-width="1.5"/>
+<text x="52" y="173" text-anchor="middle" font-family="DM Serif Display,serif" font-size="14" fill="white">H</text>
+<circle cx="130" cy="178" r="16" fill="#6ab4d8" stroke="#3888b0" stroke-width="1.5"/>
+<text x="130" y="183" text-anchor="middle" font-family="DM Serif Display,serif" font-size="14" fill="white">H</text>
+<!-- Cl atom (larger) -->
+<circle cx="208" cy="168" r="22" fill="#2c7a7b" stroke="#1a5556" stroke-width="1.5"/>
+<text x="208" y="173" text-anchor="middle" font-family="DM Serif Display,serif" font-size="14" fill="white">Cl</text>
+<!-- C center drawn last -->
+<circle cx="130" cy="100" r="20" fill="#666880" stroke="#444460" stroke-width="1.5"/>
+<text x="130" y="105" text-anchor="middle" font-family="DM Serif Display,serif" font-size="16" fill="white">C</text>
+</svg>
+              <canvas id="canvas-ch3cl"></canvas>
+              <div class="cvs-ph" id="ph-ch3cl"><div class="cvs-ph-txt" style="color:var(--coral);opacity:.5">Draw dipole arrows →</div></div>
+            </div>
+          </div>
+
+          <div class="ref-sidebar">
+            <div class="ref-note-head">Key facts</div>
+            <div class="ref-fact">3 C–H bonds (ΔEN ≈ 0.4, borderline)</div>
+            <div class="ref-fact">1 C–Cl bond (ΔEN = 0.5, polar)</div>
+            <div class="ref-fact">Compare carefully to CH₄ — what is different?</div>
+            <div class="bond-legend">
+            <div class="bond-legend-head">Bond notation</div>
+            <div class="bond-leg"><div class="bl-line"><svg width="28" height="10"><line x1="2" y1="5" x2="26" y2="5" stroke="#444" stroke-width="2"/></svg></div><span>Solid — in the plane of the screen</span></div>
+            <div class="bond-leg"><div class="bl-line"><svg width="28" height="10"><polygon points="2,9 2,1 26,5" fill="#444"/></svg></div><span>Filled wedge — toward you</span></div>
+            <div class="bond-leg"><div class="bl-line"><svg width="28" height="10"><line x1="2" y1="5" x2="26" y2="5" stroke="#888" stroke-width="1.8" stroke-dasharray="3,2"/></svg></div><span>Dashed — away from you</span></div>
+          </div>
+          </div>
+
+        </div>
+
+        <div class="flowchart-steps">
+
+          <div class="fc-step">
+            <div class="fc-step-hdr"><span class="fc-n">1</span><span class="fc-q">Do the bonds in <strong>CH₃Cl</strong> have ΔEN ≥ 0.4?</span></div>
+            <div class="fc-hint">There are two different bond types here. C–H ΔEN = <span class="den-ref" id="denref-ch-ch3cl">—</span> (from Section 1). C–Cl ΔEN ≈ 0.5 (Cl EN = 3.0, C EN = 2.5).</div>
+            <div class="radio-row">
+              <label class="r-opt"><input type="radio" name="pbond-ch3cl" value="yes"> Yes — bonds are polar (ΔEN ≥ 0.4)</label>
+              <label class="r-opt"><input type="radio" name="pbond-ch3cl" value="borderline"> Mixed — some borderline, some polar</label>
+              <label class="r-opt"><input type="radio" name="pbond-ch3cl" value="no"> No — bonds are nonpolar</label>
+            </div>
+          </div>
+
+          <div class="fc-step fc-draw">
+            <div class="fc-step-hdr"><span class="fc-n">2</span><span class="fc-q">Label partial charges and draw a dipole arrow on each polar bond above</span></div>
+            <div class="fc-hint">Label each atom δ+ (lower EN) or δ− (higher EN). Then draw a dipole arrow on each polar bond — tail at δ+, arrowhead pointing toward δ−. If there are no polar bonds, skip to Step 5.</div>
+          </div>
+
+          <div class="fc-step">
+            <div class="fc-step-hdr"><span class="fc-n">3</span><span class="fc-q">Is <strong>CH₃Cl</strong> symmetrical?</span></div>
+            <div class="fc-hint">Are all surrounding atoms the same, and are they arranged evenly around the central atom?</div>
+            <div class="radio-row">
+              <label class="r-opt"><input type="radio" name="symm-ch3cl" value="yes"> Yes — symmetrical</label>
+              <label class="r-opt"><input type="radio" name="symm-ch3cl" value="no"> No — asymmetrical</label>
+            </div>
+          </div>
+
+          <div class="fc-step">
+            <div class="fc-step-hdr"><span class="fc-n">4</span><span class="fc-q">Do the dipole arrows cancel each other out completely?</span></div>
+            <div class="radio-row">
+              <label class="r-opt"><input type="radio" name="cancel-ch3cl" value="yes"> Yes — they cancel</label>
+              <label class="r-opt"><input type="radio" name="cancel-ch3cl" value="no"> No — there is a net dipole</label>
+              <label class="r-opt"><input type="radio" name="cancel-ch3cl" value="na"> N/A — no polar bonds</label>
+            </div>
+          </div>
+
+          <div class="fc-step fc-final">
+            <div class="fc-step-hdr"><span class="fc-n">5</span><span class="fc-q">Overall molecular polarity</span></div>
+            <div class="radio-row">
+              <label class="r-opt"><input type="radio" name="polar-ch3cl" value="polar"> 🔴 Polar</label>
+              <label class="r-opt"><input type="radio" name="polar-ch3cl" value="nonpolar"> 🔵 Nonpolar</label>
+            </div>
+          </div>
+
+          <div class="fc-step" style="background:rgba(201,144,10,.06);border-left:3px solid var(--amber)">
+            <div class="fc-step-hdr"><span class="fc-n">💡</span><span class="fc-q">Reflection — compare to CH₄</span></div>
+            <div class="fc-hint">CH₄ and CH₃Cl have the same tetrahedral geometry. Why does CH₄ end up nonpolar while CH₃Cl is polar? What specifically changed?</div>
+            <textarea class="ans" id="q-ch3cl-refl" rows="2" placeholder="The difference between CH₄ and CH₃Cl is…"></textarea>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    </div>
+
+  </div></div>
+</div>
+
+<!-- SECTION 5 -->
+<div class="sec" id="sec5">
+  <div class="sec-h" onclick="toggleSec(this)">
+    <span class="sec-num">05</span>
+    <span class="sec-title">Summary Table &amp; Patterns</span>
+    <span class="sec-chev">▼</span>
+  </div>
+  <div class="sec-body"><div class="sec-in">
+    <div class="pin-lock-overlay" id="sec5Overlay">
+      <div class="plo-inner">🔒 Complete Section 3 and enter the PIN in Section 4 to unlock</div>
+    </div>
+
+    <div class="callout cg">Use your answers from Section 4 to complete the table — the Symmetrical, Dipoles Cancel, and Overall Polarity columns fill in automatically as you complete each molecule card. The Geometry and Bond Polarity columns are provided.</div>
+
+    <div class="sum-wrap">
+      <table class="sum-tbl">
+        <thead>
+          <tr>
+            <th>Molecule</th>
+            <th>Molecular Geometry</th>
+            <th>Bonds Polar?</th>
+            <th>Symmetrical?</th>
+            <th>Dipoles Cancel?</th>
+            <th>Overall Polarity</th>
+          </tr>
+        </thead>
+        <tbody id="sumBody"></tbody>
+      </table>
+    </div>
+
+    <div class="question">
+      <span class="q-lbl">Q 5.1 — Geometry and Cancellation</span>
+      <div class="q-text">Look at the molecules where dipoles <em>cancel</em> vs. those where they <em>don't</em>. What do the cancelling geometries have in common? What do the non-cancelling geometries have in common? (Hint: think about symmetry.)</div>
+      <textarea class="ans" id="q51" rows="3" placeholder="Geometries where dipoles cancel tend to be… Geometries where they don't cancel tend to…"></textarea>
+    </div>
+
+    <div class="question">
+      <span class="q-lbl">Q 5.2 — Polar Bonds, Nonpolar Molecule</span>
+      <div class="q-text">Several molecules in this lab have polar bonds but are overall <em>nonpolar</em>. Choose one and explain why having polar bonds does not automatically make a molecule polar.</div>
+      <textarea class="ans" id="q52" rows="3" placeholder="I chose ___. Even though its bonds are polar, the molecule is nonpolar because…"></textarea>
+    </div>
+
+    <div class="question">
+      <span class="q-lbl">Q 5.3 — The Lone Pair Effect</span>
+      <div class="q-text">Compare <strong>BF₃</strong> (trigonal planar, no lone pairs on B) and <strong>NH₃</strong> (trigonal pyramidal, one lone pair on N). Both molecules have 3 polar bonds. Why is BF₃ nonpolar while NH₃ is polar? What specifically does the lone pair do?</div>
+      <textarea class="ans" id="q53" rows="3" placeholder="BF₃ is nonpolar because its three B–F bonds are arranged… NH₃ is polar because the lone pair…"></textarea>
+    </div>
+
+    <div class="question">
+      <span class="q-lbl">Q 5.4 — The Lone Pair Effect (Part 2)</span>
+      <div class="q-text">CH₄ has 4 identical bonds arranged symmetrically — it is nonpolar. NH₃ also has 3 polar bonds but is polar. What structural feature makes the difference? How does this relate to the symmetry question?</div>
+      <textarea class="ans" id="q54" rows="3" placeholder="CH₄ is nonpolar because… NH₃ is polar because the lone pair…"></textarea>
+    </div>
+
+
+  </div></div>
+</div>
+
+<!-- SECTION 6 -->
+<div class="sec" id="sec6">
+  <div class="sec-h" onclick="toggleSec(this)">
+    <span class="sec-num">06</span>
+    <span class="sec-title">Reflection</span>
+    <span class="sec-chev">▼</span>
+  </div>
+  <div class="sec-body"><div class="sec-in">
+    <div class="pin-lock-overlay" id="sec6Overlay">
+      <div class="plo-inner">🔒 Complete Section 3 and enter the PIN in Section 4 to unlock</div>
+    </div>
+
+    <div class="question">
+      <span class="q-lbl">Q 6.1 — The Two-Step Rule</span>
+      <div class="q-text">Summarize the process for determining whether a molecule is polar or nonpolar. Be specific enough that a classmate who missed class could use your explanation to work through a new molecule on their own.</div>
+      <textarea class="ans" id="q61" rows="5" placeholder="To determine if a molecule is polar or nonpolar: first, you need to… then…"></textarea>
+    </div>
+
+    <div class="question">
+      <span class="q-lbl">Q 6.2 — "Like Dissolves Like"</span>
+      <div class="q-text">A key rule in chemistry is that polar solvents dissolve polar solutes, and nonpolar solvents dissolve nonpolar solutes. Based on your findings from today, predict: would you expect <strong>H₂O</strong> to dissolve better in methanol (polar) or in hexane (nonpolar)? Would <strong>CO₂</strong> dissolve better in water or in a nonpolar solvent? Explain using what you discovered about each molecule's polarity.</div>
+      <textarea class="ans" id="q62" rows="4" placeholder="H₂O would dissolve better in… because both are… CO₂ would dissolve better in…"></textarea>
+    </div>
+
+    <div class="refl-grid">
+      <div class="refl-card">
+        <span class="q-lbl">💡 Biggest Takeaway</span>
+        <div style="font-size:12px;color:var(--muted);line-height:1.5">What's the most important idea you'll remember from today?</div>
+        <textarea class="ans" id="refl1" rows="3" placeholder="Write here…"></textarea>
+      </div>
+      <div class="refl-card">
+        <span class="q-lbl">❓ Still Wondering…</span>
+        <div style="font-size:12px;color:var(--muted);line-height:1.5">What question do you still have?</div>
+        <textarea class="ans" id="refl2" rows="3" placeholder="Write here…"></textarea>
+      </div>
+      <div class="refl-card">
+        <span class="q-lbl">🌍 Real-World Connection</span>
+        <div style="font-size:12px;color:var(--muted);line-height:1.5">Where does molecular polarity show up in everyday life?</div>
+        <textarea class="ans" id="refl3" rows="3" placeholder="Write here…"></textarea>
+      </div>
+    </div>
+
+  </div></div>
+</div>
+
+
+
+<!-- ═══ VSEPR REFERENCE DRAWER ═══ -->
+<button class="vsepr-drawer-tab" id="vseprTab" onclick="toggleVSEPR()" title="VSEPR Reference Table">
+  <span class="vdt-icon">📐</span>
+  <span class="vdt-label">VSEPR Reference Table</span>
+</button>
+
+<div class="vsepr-drawer" id="vseprDrawer">
+  <div class="vsepr-drawer-header">
+    <span class="vsepr-drawer-title">VSEPR Reference Table</span>
+    <button class="vsepr-drawer-close" onclick="toggleVSEPR()" title="Close">✕</button>
+  </div>
+  <div class="vsepr-drawer-scroll">
+    <p style="font-size:11px;color:var(--muted);margin:0 0 10px;line-height:1.5">Use this to confirm molecular geometry and bond angles for Section 4. LP = lone pairs on central atom.</p>
+    <table class="vsepr-tbl">
+      <thead>
+        <tr><th>e⁻</th><th>Bond</th><th>LP</th><th>Electron Geometry</th><th>Molecular Geometry</th><th>Angle(s)</th><th>Ex.</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>2</td><td>2</td><td>0</td><td>Linear</td><td class="vt-shape">Linear</td><td>180°</td><td class="vt-ex">CO₂</td></tr>
+        <tr><td>3</td><td>3</td><td>0</td><td>Trig. planar</td><td class="vt-shape">Trigonal planar</td><td>120°</td><td class="vt-ex">BF₃</td></tr>
+        <tr class="vt-alt"><td>3</td><td>2</td><td>1</td><td>Trig. planar</td><td class="vt-shape">Bent</td><td>~120°</td><td class="vt-ex">SO₂</td></tr>
+        <tr><td>4</td><td>4</td><td>0</td><td>Tetrahedral</td><td class="vt-shape">Tetrahedral</td><td>109.5°</td><td class="vt-ex">CH₄</td></tr>
+        <tr class="vt-alt"><td>4</td><td>3</td><td>1</td><td>Tetrahedral</td><td class="vt-shape">Trigonal pyramidal</td><td>~107°</td><td class="vt-ex">NH₃</td></tr>
+        <tr><td>4</td><td>2</td><td>2</td><td>Tetrahedral</td><td class="vt-shape">Bent</td><td>~104.5°</td><td class="vt-ex">H₂O</td></tr>
+        <tr class="vt-alt"><td>5</td><td>5</td><td>0</td><td>Trig. bipyramidal</td><td class="vt-shape">Trig. bipyramidal</td><td>90°/120°</td><td class="vt-ex">PCl₅</td></tr>
+        <tr><td>5</td><td>4</td><td>1</td><td>Trig. bipyramidal</td><td class="vt-shape">Seesaw</td><td>~173°/~102°</td><td class="vt-ex">SF₄</td></tr>
+        <tr class="vt-alt"><td>5</td><td>3</td><td>2</td><td>Trig. bipyramidal</td><td class="vt-shape">T-shaped</td><td>~87°</td><td class="vt-ex">ClF₃</td></tr>
+        <tr><td>6</td><td>6</td><td>0</td><td>Octahedral</td><td class="vt-shape">Octahedral</td><td>90°</td><td class="vt-ex">SF₆</td></tr>
+        <tr class="vt-alt"><td>6</td><td>5</td><td>1</td><td>Octahedral</td><td class="vt-shape">Square pyramidal</td><td>~85°/90°</td><td class="vt-ex">BrF₅</td></tr>
+        <tr><td>6</td><td>4</td><td>2</td><td>Octahedral</td><td class="vt-shape">Square planar</td><td>90°</td><td class="vt-ex">XeF₄</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div><!-- end main -->
+</div><!-- end wrap -->
+
+<script>
+const SAVE_KEY = 'polarity_ws_gen_v1';
+const elColors = {H:'#3182ce',B:'#c05621',C:'#4a5568',N:'#276749',O:'#c53030',F:'#2f855a',P:'#6b46c1',S:'#b7791f',Cl:'#2c7a7b',Br:'#9b4a0a',Xe:'#5b3fa0'};
+
+// ── ACCORDION ──
+function toggleSec(h){ h.closest('.sec').classList.toggle('coll'); }
+
+// ── VSEPR DRAWER TOGGLE ──
+function toggleVSEPR(){
+  const drawer = document.getElementById('vseprDrawer');
+  const tab    = document.getElementById('vseprTab');
+  const isOpen = drawer.classList.toggle('open');
+  tab.classList.toggle('open', isOpen);
+}
+
+// Slide tab to track section 4 position as student scrolls
+function positionVseprTab(){
+  const sec4 = document.getElementById('sec4');
+  const tab  = document.getElementById('vseprTab');
+  if(!sec4||!tab||tab.classList.contains('open'))return;
+  const rect = sec4.getBoundingClientRect();
+  const vh   = window.innerHeight;
+  const target = rect.top + 40;
+  const clamped = Math.min(Math.max(target, 80), vh - 100);
+  tab.style.top = clamped + 'px';
+  tab.style.transform = 'translateY(0)';
+}
+window.addEventListener('scroll', positionVseprTab, {passive:true});
+window.addEventListener('resize', positionVseprTab);
+window.addEventListener('resize', ()=>syncAllOverlayHeights());
+window.addEventListener('load',   positionVseprTab);
+
+// ── BOND DATA (Section 1) ──
+const bonds = [
+  {id:'co',  a1:'C',  a2:'O',  mols:'CO₂',  bondType:'Polar covalent'},
+  {id:'bf',  a1:'B',  a2:'F',  mols:'BF₃',  bondType:'Polar covalent'},
+  {id:'ch',  a1:'C',  a2:'H',  mols:'CH₄',  bondType:'Nonpolar covalent'},
+  {id:'nh',  a1:'N',  a2:'H',  mols:'NH₃',  bondType:'Polar covalent'},
+  {id:'oh',  a1:'O',  a2:'H',  mols:'H₂O',  bondType:'Polar covalent'},
+];
+
+const bpBody = document.getElementById('bpBody');
+bonds.forEach(b => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><span class="bond-lbl">${b.a1}–${b.a2}</span></td>
+    <td><span class="el-chip" style="background:${elColors[b.a1]||'#555'}">${b.a1}</span><input class="en-in" id="en1-${b.id}" type="number" step="0.1" min="0" max="5" placeholder="?"></td>
+    <td style="color:var(--muted);font-size:18px;font-weight:200;text-align:center">−</td>
+    <td><span class="el-chip" style="background:${elColors[b.a2]||'#555'}">${b.a2}</span><input class="en-in" id="en2-${b.id}" type="number" step="0.1" min="0" max="5" placeholder="?"></td>
+    <td><span class="den-val" id="den-${b.id}">—</span></td>
+    <td>
+      <select class="bt-sel ss" id="bt-${b.id}">
+        <option value="">— select —</option>
+        <option value="Nonpolar covalent">Nonpolar covalent</option>
+        <option value="Polar covalent">Polar covalent</option>
+        <option value="Ionic">Ionic</option>
+      </select>
+    </td>
+    <td class="mol-tag">${b.mols}</td>`;
+  bpBody.appendChild(tr);
+
+  function recalc(){
+    const v1=parseFloat(document.getElementById('en1-'+b.id).value);
+    const v2=parseFloat(document.getElementById('en2-'+b.id).value);
+    const el=document.getElementById('den-'+b.id);
+    if(!isNaN(v1)&&!isNaN(v2)) el.textContent=Math.abs(v1-v2).toFixed(1);
+    else el.textContent='—';
+    document.querySelectorAll(`.den-ref[id^="denref-${b.id}-"]`).forEach(span=>{
+      span.textContent=el.textContent;
+    });
+    saveAll();
+  }
+  document.getElementById('en1-'+b.id).addEventListener('input',recalc);
+  document.getElementById('en2-'+b.id).addEventListener('input',recalc);
+});
+
+// ── PIN LOCK ──
+const TEACHER_PIN = '3141'; // ← change this to your preferred PIN
+let pinUnlocked = false;
+
+function unlockPIN(){
+  const val = document.getElementById('pinInput').value.trim();
+  const status = document.getElementById('pinStatus');
+  const msg = document.getElementById('pinMsg');
+  const gate = document.getElementById('pinGate');
+  const lbl = document.getElementById('pinLabel');
+  if(val === TEACHER_PIN){
+    pinUnlocked = true;
+    status.textContent = '✓ Unlocked!';
+    status.className = 'pin-status ok';
+    msg.style.display = 'none';
+    lbl.textContent = '✓ Models Verified';
+    lbl.className = 'pin-lbl ok';
+    gate.classList.add('unlocked');
+    document.getElementById('pinInput').disabled = true;
+    document.querySelector('.pin-btn').style.display = 'none';
+    // Reveal mol cards in sec4
+    const overlay4 = document.getElementById('sec4Overlay');
+    if(overlay4) overlay4.classList.add('unlocked');
+    mols.forEach(m=>{
+      const el = document.getElementById('ref-'+m.id);
+      if(el) el.classList.add('shown');
+    });
+    // Re-sync canvases that were 0-height while ref-reveals were hidden
+    setTimeout(()=>{mols.forEach(m=>syncCanvasSize(m.id));syncCanvasSize('ch3cl');syncAllOverlayHeights();},400);
+    // Unlock sections 5 and 6
+    ['sec5Overlay','sec6Overlay'].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el) el.classList.add('unlocked');
+    });
+    saveAll();
+  } else {
+    status.textContent = '✗ Incorrect PIN — try again';
+    status.className = 'pin-status';
+    document.getElementById('pinInput').select();
+  }
+}
+
+// ── MOLECULE SVGs (3D perspective diagrams) ──
+const molSVGs = {
+
+co2:`<svg viewBox="0 0 260 182" xmlns="http://www.w3.org/2000/svg">
+<rect width="260" height="182" fill="#eeeaff" rx="6"/>
+
+<line x1="38" y1="91" x2="222" y2="91" stroke="#c9900a" stroke-width="0.8" stroke-dasharray="4,3" opacity="0.4"/>
+<line x1="105" y1="85" x2="62" y2="85" stroke="#444" stroke-width="2.2"/><line x1="105" y1="97" x2="62" y2="97" stroke="#444" stroke-width="2.2"/>
+<line x1="155" y1="85" x2="198" y2="85" stroke="#444" stroke-width="2.2"/><line x1="155" y1="97" x2="198" y2="97" stroke="#444" stroke-width="2.2"/>
+<circle cx="38" cy="91" r="22" fill="#d94040" stroke="#a02020" stroke-width="1.5"/>
+<text x="38" y="96" text-anchor="middle" font-family="DM Serif Display,serif" font-size="16" fill="white">O</text>
+<circle cx="130" cy="91" r="19" fill="#666880" stroke="#444460" stroke-width="1.5"/>
+<text x="130" y="96" text-anchor="middle" font-family="DM Serif Display,serif" font-size="15" fill="white">C</text>
+<circle cx="222" cy="91" r="22" fill="#d94040" stroke="#a02020" stroke-width="1.5"/>
+<text x="222" y="96" text-anchor="middle" font-family="DM Serif Display,serif" font-size="16" fill="white">O</text>
+<text x="84" y="79" text-anchor="middle" font-size="9" fill="#888" font-family="DM Mono,monospace">C=O</text>
+<text x="176" y="79" text-anchor="middle" font-size="9" fill="#888" font-family="DM Mono,monospace">C=O</text>
+</svg>`,
+
+bf3:`<svg viewBox="0 0 260 200" xmlns="http://www.w3.org/2000/svg">
+<rect width="260" height="200" fill="#eeeaff" rx="6"/>
+
+<line x1="130" y1="85" x2="130" y2="40" stroke="#444" stroke-width="2.5"/>
+<line x1="147" y1="115" x2="186" y2="138" stroke="#444" stroke-width="2.5"/>
+<line x1="113" y1="115" x2="74" y2="138" stroke="#444" stroke-width="2.5"/>
+
+
+<circle cx="130" cy="105" r="20" fill="#e89030" stroke="#b06010" stroke-width="1.5"/>
+<text x="130" y="110" text-anchor="middle" font-family="DM Serif Display,serif" font-size="15" fill="white">B</text>
+<circle cx="130" cy="23" r="17" fill="#40b030" stroke="#208010" stroke-width="1.5"/>
+<text x="130" y="28" text-anchor="middle" font-family="DM Serif Display,serif" font-size="14" fill="white">F</text>
+<circle cx="201" cy="146" r="17" fill="#40b030" stroke="#208010" stroke-width="1.5"/>
+<text x="201" y="151" text-anchor="middle" font-family="DM Serif Display,serif" font-size="14" fill="white">F</text>
+<circle cx="59" cy="146" r="17" fill="#40b030" stroke="#208010" stroke-width="1.5"/>
+<text x="59" y="151" text-anchor="middle" font-family="DM Serif Display,serif" font-size="14" fill="white">F</text>
+<text x="130" y="195" text-anchor="middle" font-size="8" fill="#888" font-family="DM Mono,monospace" font-style="italic">Lone pairs not shown</text>
+</svg>`,
+
+ch4:`<svg viewBox="0 0 260 205" xmlns="http://www.w3.org/2000/svg">
+<rect width="260" height="205" fill="#eeeaff" rx="6"/>
+<text x="130" y="16" text-anchor="middle" font-size="8" fill="#888" font-family="DM Mono,monospace" font-style="italic">Lone pairs not shown</text>
+<!-- Solid lines: top H (in-plane, straight up) and left H (in-plane) -->
+<line x1="130" y1="80" x2="130" y2="44" stroke="#444" stroke-width="2.5"/>
+<line x1="110" y1="108" x2="66" y2="161" stroke="#444" stroke-width="2.5"/>
+<!-- Filled wedge: center H coming toward viewer -->
+<polygon stroke="#333" stroke-width="1" stroke-linejoin="round" points="130,106 123,162 137,162" fill="#444"/>
+<!-- Hashed wedge: right H going away from viewer -->
+<line x1="138.1" y1="108.2" x2="139.3" y2="106.9" stroke="#444" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="146.2" y1="116.5" x2="148.5" y2="113.8" stroke="#444" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="154.2" y1="124.7" x2="157.8" y2="120.7" stroke="#444" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="162.3" y1="132.9" x2="167.0" y2="127.5" stroke="#444" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="170.4" y1="141.1" x2="176.3" y2="134.4" stroke="#444" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="178.5" y1="149.4" x2="185.5" y2="141.3" stroke="#444" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="186.6" y1="157.6" x2="194.8" y2="148.2" stroke="#444" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="194.7" y1="165.8" x2="204.0" y2="155.1" stroke="#444" stroke-width="2.2" stroke-linecap="round"/>
+<line x1="202.7" y1="174.0" x2="213.3" y2="162.0" stroke="#444" stroke-width="2.2" stroke-linecap="round"/>
+<!-- H atoms -->
+<circle cx="130" cy="28" r="16" fill="#6ab4d8" stroke="#3888b0" stroke-width="1.5"/>
+<text x="130" y="33" text-anchor="middle" font-family="DM Serif Display,serif" font-size="14" fill="white">H</text>
+<circle cx="52" cy="168" r="16" fill="#6ab4d8" stroke="#3888b0" stroke-width="1.5"/>
+<text x="52" y="173" text-anchor="middle" font-family="DM Serif Display,serif" font-size="14" fill="white">H</text>
+<circle cx="130" cy="178" r="16" fill="#6ab4d8" stroke="#3888b0" stroke-width="1.5"/>
+<text x="130" y="183" text-anchor="middle" font-family="DM Serif Display,serif" font-size="14" fill="white">H</text>
+<circle cx="208" cy="168" r="16" fill="#6ab4d8" stroke="#3888b0" stroke-width="1.5"/>
+<text x="208" y="173" text-anchor="middle" font-family="DM Serif Display,serif" font-size="14" fill="white">H</text>
+<!-- C center drawn last -->
+<circle cx="130" cy="100" r="20" fill="#666880" stroke="#444460" stroke-width="1.5"/>
+<text x="130" y="105" text-anchor="middle" font-family="DM Serif Display,serif" font-size="16" fill="white">C</text>
+</svg>`,
+nh3:`<svg viewBox="0 0 260 200" xmlns="http://www.w3.org/2000/svg">
+<rect width="260" height="200" fill="#eeeaff" rx="6"/>
+<text x="131" y="37" text-anchor="middle" font-size="8" fill="#888" font-family="DM Mono,monospace" font-style="italic">Lone pairs not shown</text>
+<!-- Dashed bond going back-left -->
+<line x1="130" y1="94" x2="70" y2="158" stroke="#888" stroke-width="2" stroke-dasharray="5,3"/>
+<!-- Solid bond going right -->
+<line x1="130" y1="94" x2="190" y2="158" stroke="#444" stroke-width="2.5"/>
+<!-- Filled wedge: front-center H toward viewer -->
+<polygon stroke="#333" stroke-width="1" stroke-linejoin="round" points="124,97 136,97 130,178" fill="#444"/>
+<!-- H atoms -->
+<circle cx="70" cy="164" r="16" fill="#6ab4d8" stroke="#3888b0" stroke-width="1.5"/>
+<text x="70" y="169" text-anchor="middle" font-family="DM Serif Display,serif" font-size="14" fill="white">H</text>
+<circle cx="190" cy="164" r="16" fill="#6ab4d8" stroke="#3888b0" stroke-width="1.5"/>
+<text x="190" y="169" text-anchor="middle" font-family="DM Serif Display,serif" font-size="14" fill="white">H</text>
+<circle cx="130" cy="184" r="16" fill="#6ab4d8" stroke="#3888b0" stroke-width="1.5"/>
+<text x="130" y="189" text-anchor="middle" font-family="DM Serif Display,serif" font-size="14" fill="white">H</text>
+<circle cx="130" cy="91" r="21" fill="#4070c0" stroke="#204090" stroke-width="1.5"/>
+<text x="130" y="96" text-anchor="middle" font-family="DM Serif Display,serif" font-size="16" fill="white">N</text>
+</svg>`,
+h2o:`<svg viewBox="0 0 260 188" xmlns="http://www.w3.org/2000/svg">
+<rect width="260" height="188" fill="#eeeaff" rx="6"/>
+
+<text x="131" y="36" text-anchor="middle" font-size="8" fill="#888" font-family="DM Mono,monospace" font-style="italic">Lone pairs not shown</text>
+<line x1="130" y1="92" x2="74" y2="152" stroke="#444" stroke-width="2.5"/>
+<line x1="130" y1="92" x2="186" y2="152" stroke="#444" stroke-width="2.5"/>
+
+
+<circle cx="130" cy="88" r="22" fill="#d94040" stroke="#a02020" stroke-width="1.5"/>
+<text x="130" y="93" text-anchor="middle" font-family="DM Serif Display,serif" font-size="16" fill="white">O</text>
+<circle cx="68" cy="160" r="16" fill="#6ab4d8" stroke="#3888b0" stroke-width="1.5"/>
+<text x="68" y="165" text-anchor="middle" font-family="DM Serif Display,serif" font-size="14" fill="white">H</text>
+<circle cx="192" cy="160" r="16" fill="#6ab4d8" stroke="#3888b0" stroke-width="1.5"/>
+<text x="192" y="165" text-anchor="middle" font-family="DM Serif Display,serif" font-size="14" fill="white">H</text>
+</svg>`,
+
+
+
+};
+
+// ── MOLECULE FACTS (shown alongside SVG after unlock) ──
+const molFacts = {
+  co2:  ['2 double bonds (C=O)','No lone pairs on C','Both bonds are identical in length and polarity'],
+  bf3:  ['3 single B–F bonds','No lone pairs on B — electron-deficient center','All three bonds are identical'],
+  ch4:  ['4 equivalent C–H bonds','ΔEN(C–H) ≈ 0.4 — borderline polar','No lone pairs on C'],
+  nh3:  ['3 N–H bonds','1 lone pair on N pushes bonds together','Bond angles smaller than a perfect tetrahedron'],
+  h2o:  ['2 O–H bonds','2 lone pairs on O push bonds closer together','Most compressed bond angle in this series'],
+};
+
+// ── MOLECULE DATA (Section 2) ──
+const mols = [
+  {id:'co2',  bondIds:['co'],  formula:'CO₂',  name:'Carbon Dioxide',           geo:'linear',              bondsInfo:'C–O (×2)',   polarBond:true,  note:'Both C–O bonds are polar. Draw dipole arrows on the reference diagram — arrows on each C=O bond pointing toward O.'},
+  {id:'bf3',  bondIds:['bf'],  formula:'BF₃',  name:'Boron Trifluoride',        geo:'trigonal planar',      bondsInfo:'B–F (×3)',   polarBond:true,  note:'B–F bonds have high ΔEN (2.0). Draw 3 arrows on the reference diagram pointing outward from B toward each F.'},
+  {id:'ch4',  bondIds:['ch'],  formula:'CH₄',  name:'Methane',                  geo:'tetrahedral',          bondsInfo:'C–H (×4)',   polarBond:false, note:'C–H bonds are essentially nonpolar (ΔEN ≈ 0.4). No dipole arrows needed — just confirm the 3D tetrahedral shape.'},
+  {id:'nh3',  bondIds:['nh'],  formula:'NH₃',  name:'Ammonia',                  geo:'trigonal pyramidal',   bondsInfo:'N–H (×3)',   polarBond:true,  note:'Sketch the pyramid shape. All three N–H dipole arrows point inward/upward toward N (the more EN atom).'},
+  {id:'h2o',  bondIds:['oh'],  formula:'H₂O',  name:'Water',                    geo:'bent',                 bondsInfo:'O–H (×2)',   polarBond:true,  note:'Bent shape (~104.5°). Both O–H arrows point inward toward O. They do NOT point in exactly opposite directions.'},
+];
+
+const molCards = document.getElementById('molCards');
+const canvasState = {};
+
+// Populate build chip list
+const buildChips = document.getElementById('buildChips');
+mols.forEach(m => {
+  const chip = document.createElement('div');
+  chip.className = 'mol-chip';
+  chip.innerHTML = `${m.formula} <span class="chip-geo">${m.geo}</span>`;
+  buildChips.appendChild(chip);
+});
+
+mols.forEach(m => {
+  const facts = (molFacts[m.id]||[]).map(f=>`<div class="ref-fact">${f}</div>`).join('');
+  const svgStr = (molSVGs[m.id]||'').replace('<svg ', '<svg class="mol-overlay-svg" ');
+  const card = document.createElement('div');
+  card.className = 'mol-card';
+  card.innerHTML = `
+    <div class="mol-head">
+      <span class="mol-formula">${m.formula}</span>
+      <span class="mol-name">${m.name}</span>
+      <div class="mol-geo-wrap">
+        <span class="geo-lbl">Molecular Geometry</span>
+        <select class="geo-sel ss" id="geo-${m.id}"><option value="">— select —</option><option value="linear">Linear</option><option value="trigonal planar">Trigonal planar</option><option value="tetrahedral">Tetrahedral</option><option value="trigonal pyramidal">Trigonal pyramidal</option><option value="bent">Bent</option><option value="octahedral">Octahedral</option><option value="square pyramidal">Square pyramidal</option><option value="square planar">Square planar</option></select>
+        <span class="geo-lbl" style="margin-left:8px">Bond Angle</span>
+        <select class="geo-sel ss" id="ang-${m.id}"><option value="">— select —</option><option value="180°">180°</option><option value="120°">120°</option><option value="109.5°">109.5°</option><option value="107°">~107°</option><option value="104.5°">~104.5°</option><option value="90°">90°</option><option value="85° / 90°">85° / 90°</option></select>
+      </div>
+    </div>
+
+    <div class="ref-reveal" id="ref-${m.id}">
+      <div class="ref-hdr">
+        <span class="ref-icon">🔬</span>
+        <span class="ref-lbl">Reference — Correct 3D Structure</span>
+        <span class="ref-sub">Compare your model, then work through the steps below</span>
+      </div>
+      <div class="ref-body">
+
+        <div class="mol-overlay-outer">
+          <div class="mol-overlay-hint">Draw directly on the diagram — use <span style="color:var(--coral);font-weight:700">coral red</span> for dipole arrows</div>
+          <div class="toolbar" id="tb-${m.id}">
+            <div class="tb-grp">
+              <button class="tb-btn act" id="pen-${m.id}" onclick="setTool('${m.id}','pen')" title="Pen">✏️</button>
+              <button class="tb-btn" id="era-${m.id}" onclick="setTool('${m.id}','eraser')" title="Eraser">⬜</button>
+            </div>
+            <div class="tb-sep"></div>
+            <div class="tb-grp">
+              <button class="sz-btn act" id="sz1-${m.id}" onclick="setSize('${m.id}',2,this)"><div class="sz-dot" style="width:3px;height:3px"></div></button>
+              <button class="sz-btn" id="sz2-${m.id}" onclick="setSize('${m.id}',5,this)"><div class="sz-dot" style="width:6px;height:6px"></div></button>
+              <button class="sz-btn" id="sz3-${m.id}" onclick="setSize('${m.id}',10,this)"><div class="sz-dot" style="width:10px;height:10px"></div></button>
+            </div>
+            <div class="tb-sep"></div>
+            <div class="tb-grp">
+              <div class="sw sel" style="background:#d94f2b" onclick="setColor('${m.id}','#d94f2b',this)" title="Coral — dipole arrows"></div>
+              <div class="sw" style="background:#1a7fc4" onclick="setColor('${m.id}','#1a7fc4',this)" title="Blue — net dipole"></div>
+              <div class="sw" style="background:#1a1040" onclick="setColor('${m.id}','#1a1040',this)" title="Ink"></div>
+              <div class="sw" style="background:#376348" onclick="setColor('${m.id}','#376348',this)" title="Green"></div>
+            </div>
+            <div class="tb-sep"></div>
+            <div class="tb-grp">
+              <button class="tb-btn" onclick="undoCanvas('${m.id}')" title="Undo">↩️</button>
+              <button class="tb-btn" onclick="clearCanvas('${m.id}')" title="Clear">🗑️</button>
+            </div>
+          </div>
+          <div class="mol-overlay-wrap" id="wrap-${m.id}">
+            ${svgStr}
+            <canvas id="canvas-${m.id}"></canvas>
+            <div class="cvs-ph" id="ph-${m.id}"><div class="cvs-ph-txt" style="color:var(--coral);opacity:.5">Draw dipole arrows →</div></div>
+          </div>
+        </div>
+
+        <div class="ref-sidebar">
+          <div class="ref-note-head">Key facts</div>
+          ${facts}
+          <div class="bond-legend">
+            <div class="bond-legend-head">Bond notation</div>
+            <div class="bond-leg"><div class="bl-line"><svg width="28" height="10"><line x1="2" y1="5" x2="26" y2="5" stroke="#444" stroke-width="2"/></svg></div><span>Solid — in the plane of the screen</span></div>
+            <div class="bond-leg"><div class="bl-line"><svg width="28" height="10"><polygon points="2,9 2,1 26,5" fill="#444"/></svg></div><span>Filled wedge — toward you</span></div>
+            <div class="bond-leg"><div class="bl-line"><svg width="28" height="10"><line x1="2" y1="5" x2="26" y2="5" stroke="#888" stroke-width="1.8" stroke-dasharray="3,2"/></svg></div><span>Dashed — away from you</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="flowchart-steps">
+
+        <div class="fc-step">
+          <div class="fc-step-hdr"><span class="fc-n">1</span><span class="fc-q">Do the bonds in <strong>${m.formula}</strong> have ΔEN ≥ 0.4?</span></div>
+          <div class="fc-hint">From your Section 1 table: ${(m.bondIds||[]).map(bid=>{const b=bonds.find(x=>x.id===bid);return b?`<strong>${b.a1}–${b.a2} ΔEN = <span class="den-ref" id="denref-${bid}-${m.id}">—</span></strong>`:'';}).join(' &nbsp;·&nbsp; ')} <span style="color:var(--muted);font-size:10.5px">(enter EN values in Section 1 to see this)</span></div>
+          <div class="radio-row">
+            <label class="r-opt"><input type="radio" name="pbond-${m.id}" value="yes"> Yes — bonds are polar (ΔEN ≥ 0.4)</label>
+            <label class="r-opt"><input type="radio" name="pbond-${m.id}" value="borderline"> Borderline (ΔEN ≈ 0.4)</label>
+            <label class="r-opt"><input type="radio" name="pbond-${m.id}" value="no"> No — bonds are nonpolar</label>
+          </div>
+        </div>
+
+        <div class="fc-step fc-draw">
+          <div class="fc-step-hdr"><span class="fc-n">2</span><span class="fc-q">Label partial charges and draw a dipole arrow on each polar bond above</span></div>
+          <div class="fc-hint">Label each atom δ+ (lower EN) or δ− (higher EN). Then draw a dipole arrow on each polar bond — tail at δ+, arrowhead pointing toward δ−. If there are no polar bonds, skip to Step 5.</div>
+        </div>
+
+        <div class="fc-step">
+          <div class="fc-step-hdr"><span class="fc-n">3</span><span class="fc-q">Is <strong>${m.formula}</strong> symmetrical?</span></div>
+          <div class="fc-hint">Are all surrounding atoms the same, and are they arranged evenly around the central atom?</div>
+          <div class="radio-row">
+            <label class="r-opt"><input type="radio" name="symm-${m.id}" value="yes"> Yes — symmetrical</label>
+            <label class="r-opt"><input type="radio" name="symm-${m.id}" value="no"> No — asymmetrical</label>
+          </div>
+        </div>
+
+        <div class="fc-step">
+          <div class="fc-step-hdr"><span class="fc-n">4</span><span class="fc-q">Do the dipole arrows cancel each other out completely?</span></div>
+          <div class="radio-row">
+            <label class="r-opt"><input type="radio" name="cancel-${m.id}" value="yes"> Yes — they cancel</label>
+            <label class="r-opt"><input type="radio" name="cancel-${m.id}" value="no"> No — there is a net dipole</label>
+            <label class="r-opt"><input type="radio" name="cancel-${m.id}" value="na"> N/A — no polar bonds</label>
+          </div>
+        </div>
+
+        <div class="fc-step fc-final">
+          <div class="fc-step-hdr"><span class="fc-n">5</span><span class="fc-q">Overall molecular polarity</span></div>
+          <div class="radio-row">
+            <label class="r-opt"><input type="radio" name="polar-${m.id}" value="polar"> 🔴 Polar</label>
+            <label class="r-opt"><input type="radio" name="polar-${m.id}" value="nonpolar"> 🔵 Nonpolar</label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  `;
+  molCards.appendChild(card);
+});
+
+// ── SUMMARY TABLE (Section 3) ──
+const sumRows = [
+  {id:'co2',  f:'CO₂',  geo:'Linear',             bonds:'C–O: Yes', cancelOpts:['Yes','No']},
+  {id:'bf3',  f:'BF₃',  geo:'Trigonal planar',     bonds:'B–F: Yes', cancelOpts:['Yes','No']},
+  {id:'ch4',  f:'CH₄',  geo:'Tetrahedral',         bonds:'C–H: Borderline', cancelOpts:['N/A — no polar bonds','Yes','No']},
+  {id:'nh3',  f:'NH₃',  geo:'Trigonal pyramidal',  bonds:'N–H: Yes', cancelOpts:['Yes','No']},
+  {id:'h2o',  f:'H₂O',  geo:'Bent',                bonds:'O–H: Yes', cancelOpts:['Yes','No']},
+  {id:'ch3cl', f:'CH₃Cl', geo:'Tetrahedral',          bonds:'C–H: Borderline / C–Cl: Yes', cancelOpts:['Yes','No']},
+];
+const sumBody = document.getElementById('sumBody');
+sumRows.forEach(r => {
+  const tr = document.createElement('tr');
+  const opts = r.cancelOpts.map(o=>`<option value="${o}">${o}</option>`).join('');
+  tr.innerHTML = `
+    <td>${r.f}</td>
+    <td class="fx">${r.geo}</td>
+    <td class="fx">${r.bonds}</td>
+    <td id="ss-${r.id}" class="fx">—</td>
+    <td><select class="ss" id="sc-${r.id}"><option value="">—</option>${opts}</select></td>
+    <td><select class="ss" id="sp-${r.id}"><option value="">—</option><option>Polar</option><option>Nonpolar</option></select></td>`;
+  sumBody.appendChild(tr);
+});
+
+// ── AUTO-POPULATE section 5 from section 4 cancel/polar answers ──
+// Map cancel radio values to section 5 select text
+const cancelMap = {yes:'Yes', no:'No', na:'N/A — no polar bonds'};
+const polarMap  = {polar:'Polar', nonpolar:'Nonpolar'};
+const symmMap   = {yes:'Yes', no:'No'};
+
+function syncToSummary(molId){
+  const cancelEl = document.querySelector(`input[name="cancel-${molId}"]:checked`);
+  const polarEl  = document.querySelector(`input[name="polar-${molId}"]:checked`);
+  const symmEl   = document.querySelector(`input[name="symm-${molId}"]:checked`);
+  const scSel = document.getElementById('sc-'+molId);
+  const spSel = document.getElementById('sp-'+molId);
+  const ssCell = document.getElementById('ss-'+molId);
+  if(cancelEl && scSel){ const mapped=cancelMap[cancelEl.value]; if(mapped) scSel.value=mapped; }
+  if(polarEl  && spSel){ const mapped=polarMap[polarEl.value];   if(mapped) spSel.value=mapped; }
+  if(symmEl   && ssCell){ const mapped=symmMap[symmEl.value];    if(mapped) ssCell.textContent=mapped; }
+  saveAll();
+}
+
+// Attach listeners to cancel/polar/symm radios
+mols.forEach(m=>{
+  document.querySelectorAll(`input[name="cancel-${m.id}"], input[name="polar-${m.id}"], input[name="symm-${m.id}"]`).forEach(radio=>{
+    radio.addEventListener('change', ()=>syncToSummary(m.id));
+  });
+});
+// CH3Cl challenge card listeners
+document.querySelectorAll('input[name="cancel-ch3cl"], input[name="polar-ch3cl"], input[name="symm-ch3cl"]').forEach(radio=>{
+  radio.addEventListener('change', ()=>syncToSummary('ch3cl'));
+});
+
+// ── CANVAS ENGINE ──
+// Get intrinsic pixel dimensions for an overlay canvas from its SVG viewBox
+// This means the buffer never needs to resize, eliminating all black-canvas timing bugs
+function getOverlayDims(wrapId){
+  const w=document.getElementById(wrapId);
+  const dpr=Math.min(window.devicePixelRatio||1,2); // cap at 2× for file size balance
+  if(!w)return{pw:500*dpr,ph:300*dpr,dpr};
+  const svg=w.querySelector('svg');
+  if(svg){
+    const vb=svg.getAttribute('viewBox');
+    if(vb){const p=vb.split(/\s+/);return{pw:Math.round((+p[2]||500)*dpr),ph:Math.round((+p[3]||300)*dpr),dpr};}
+  }
+  return{pw:Math.round((w.offsetWidth||500)*dpr),ph:Math.round((w.offsetHeight||300)*dpr),dpr};
+}
+
+// Sync overlay wrapper height to actual rendered SVG height (after CSS max-height clamps it)
+function syncOverlayHeight(id){
+  const w=document.getElementById('wrap-'+id);
+  if(!w)return;
+  const svg=w.querySelector('svg');
+  if(!svg)return;
+  const h=svg.getBoundingClientRect().height;
+  if(h>0) w.style.height=h+'px';
+}
+function syncAllOverlayHeights(){
+  mols.forEach(m=>syncOverlayHeight(m.id));
+  ['p1','p2','pracBond','pracBond2','ch3cl'].forEach(id=>syncOverlayHeight(id));
+}
+function syncCanvasSize(id){
+  const c=document.getElementById('canvas-'+id);
+  const w=document.getElementById('wrap-'+id);
+  if(!c||!w)return;
+  const isOverlay=w.classList.contains('pc-overlay-wrap')||w.classList.contains('mol-overlay-wrap');
+  if(isOverlay)return; // overlay dims are fixed at init time from SVG viewBox — never resize
+  // Non-overlay: sync width only if it changed meaningfully
+  const pw=w.offsetWidth;
+  if(pw>0&&Math.abs(pw-c.width)>2){const h=c.height||180;c.width=pw;c.height=h;}
+}
+function getPos(e,c){const r=c.getBoundingClientRect(),sx=c.width/r.width,sy=c.height/r.height;return{x:(e.clientX-r.left)*sx,y:(e.clientY-r.top)*sy}}
+function getPosT(e,c){const t=e.touches[0],r=c.getBoundingClientRect(),sx=c.width/r.width,sy=c.height/r.height;return{x:(t.clientX-r.left)*sx,y:(t.clientY-r.top)*sy}}
+
+function startDraw(id,p){const s=canvasState[id];if(!s)return;s.drawing=true;s.last=p;const c=document.getElementById('canvas-'+id);s.history.push(c.toDataURL());if(s.history.length>40)s.history.shift()}
+function doDraw(id,p){const s=canvasState[id];if(!s||!s.drawing)return;const c=document.getElementById('canvas-'+id),ctx=c.getContext('2d');ctx.imageSmoothingEnabled=true;const w=document.getElementById('wrap-'+id);const isOverlay=w&&(w.classList.contains('pc-overlay-wrap')||w.classList.contains('mol-overlay-wrap'));ctx.beginPath();if(s.tool==='eraser'){if(isOverlay){ctx.globalCompositeOperation='destination-out';ctx.strokeStyle='rgba(0,0,0,1)';}else{ctx.globalCompositeOperation='source-over';ctx.strokeStyle='#fff';}ctx.lineWidth=s.size*3;}else{ctx.globalCompositeOperation='source-over';ctx.strokeStyle=s.color;ctx.lineWidth=s.size;}ctx.lineCap='round';ctx.lineJoin='round';ctx.moveTo(s.last.x,s.last.y);ctx.lineTo(p.x,p.y);ctx.stroke();ctx.globalCompositeOperation='source-over';s.last=p;s.hasContent=true;const ph=document.getElementById('ph-'+id);if(ph)ph.style.display='none'}
+function endDraw(id){const s=canvasState[id];if(s&&s.drawing){s.drawing=false;saveAll()}}
+function setTool(id,t){const s=canvasState[id];if(!s)return;s.tool=t;document.getElementById('pen-'+id).classList.toggle('act',t==='pen');document.getElementById('era-'+id).classList.toggle('act',t==='eraser')}
+function setSize(id,sz,btn){const s=canvasState[id];if(!s)return;s.size=sz;['sz1','sz2','sz3'].forEach(k=>{const el=document.getElementById(k+'-'+id);if(el)el.classList.remove('act')});btn.classList.add('act')}
+function setColor(id,col,sw){const s=canvasState[id];if(!s)return;s.color=col;s.tool='pen';document.getElementById('pen-'+id).classList.add('act');document.getElementById('era-'+id).classList.remove('act');document.querySelectorAll('#tb-'+id+' .sw').forEach(el=>el.classList.remove('sel'));sw.classList.add('sel')}
+function undoCanvas(id){const s=canvasState[id];if(!s||!s.history.length)return;const prev=s.history.pop();const c=document.getElementById('canvas-'+id),ctx=c.getContext('2d');const w=c.width,h=c.height;c.width=0;c.width=w;c.height=h;const img=new Image();img.onload=()=>{ctx.drawImage(img,0,0);saveAll()};img.src=prev}
+function clearCanvas(id){if(!confirm('Clear this sketch?'))return;const c=document.getElementById('canvas-'+id);const w=document.getElementById('wrap-'+id);const isOverlay=w&&(w.classList.contains('pc-overlay-wrap')||w.classList.contains('mol-overlay-wrap'));if(isOverlay){// Fixed-size buffer — just clear, never resize
+c.getContext('2d').clearRect(0,0,c.width,c.height);}else{const h=c.height||180;c.width=c.width||w.offsetWidth||640;c.height=h;}const s=canvasState[id];if(s){s.history=[];s.hasContent=false}const ph2=document.getElementById('ph-'+id);if(ph2)ph2.style.display='flex';saveAll()}
+
+function initCanvas(id){
+  const c=document.getElementById('canvas-'+id),w=document.getElementById('wrap-'+id);
+  if(!c||!w)return;
+  const isOverlay=w.classList.contains('pc-overlay-wrap')||w.classList.contains('mol-overlay-wrap');
+  if(isOverlay){
+    // Buffer = SVG viewBox × DPR for crisp rendering. CSS scales display.
+    const {pw,ph,dpr}=getOverlayDims('wrap-'+id);
+    c.width=pw; c.height=ph;
+    // Store DPR on canvasState for consistent coordinate scaling
+    canvasState[id]=canvasState[id]||{};
+    canvasState[id]._dpr=dpr;
+  } else {
+    const dpr2=Math.min(window.devicePixelRatio||1,2);
+    const initW=(w.offsetWidth||640)*dpr2;
+    c.width=initW; c.height=180*dpr2;
+    c.style.width=(w.offsetWidth||640)+'px'; c.style.height='180px';
+    let raf=null,prevW=0;
+    new ResizeObserver(entries=>{
+      if(raf)cancelAnimationFrame(raf);
+      raf=requestAnimationFrame(()=>{
+        const nw=entries[0].contentRect.width;
+        if(Math.abs(nw-prevW)<1)return; prevW=nw;
+        const snap=c.toDataURL('image/png');
+        const dprN=Math.min(window.devicePixelRatio||1,2);
+        c.width=Math.round(nw*dprN); c.style.width=nw+'px';
+        const img=new Image();img.onload=()=>c.getContext('2d').drawImage(img,0,0,c.width,c.height);img.src=snap;
+      });
+    }).observe(w);
+    const rh=document.getElementById('rh-'+id);
+    if(rh){
+      rh.addEventListener('mousedown',e=>{e.preventDefault();const sy=e.clientY,sh=c.offsetHeight;const mm=ev=>{c.height=Math.max(120,sh+(ev.clientY-sy));c.style.height=c.height+'px'};const mu=()=>{document.removeEventListener('mousemove',mm);document.removeEventListener('mouseup',mu);saveAll()};document.addEventListener('mousemove',mm);document.addEventListener('mouseup',mu)});
+      rh.addEventListener('touchstart',e=>{e.preventDefault();const sy=e.touches[0].clientY,sh=c.offsetHeight;const tm=ev=>{ev.preventDefault();c.height=Math.max(120,sh+(ev.touches[0].clientY-sy));c.style.height=c.height+'px'};const tu=()=>{rh.removeEventListener('touchmove',tm);rh.removeEventListener('touchend',tu);saveAll()};rh.addEventListener('touchmove',tm,{passive:false});rh.addEventListener('touchend',tu)},{passive:false});
+    }
+  }
+  canvasState[id]={tool:'pen',color:isOverlay?'#d94f2b':'#1a1040',size:2,drawing:false,last:null,history:[],hasContent:false};
+  c.addEventListener('mousedown',e=>startDraw(id,getPos(e,c)));
+  c.addEventListener('mousemove',e=>{if(canvasState[id].drawing)doDraw(id,getPos(e,c))});
+  c.addEventListener('mouseup',()=>endDraw(id));
+  c.addEventListener('mouseleave',()=>endDraw(id));
+  c.addEventListener('touchstart',e=>{e.preventDefault();startDraw(id,getPosT(e,c))},{passive:false});
+  c.addEventListener('touchmove',e=>{e.preventDefault();doDraw(id,getPosT(e,c))},{passive:false});
+  c.addEventListener('touchend',e=>{e.preventDefault();endDraw(id)},{passive:false});
+}
+
+mols.forEach(m=>initCanvas(m.id));
+['p1','p2','pracBond','pracBond2','ch3cl'].forEach(id=>initCanvas(id));
+
+// ── SAVE / RESTORE ──
+function saveAll(){
+  const d={};
+  document.querySelectorAll('input[id]:not([type=radio]):not([type=file])').forEach(el=>d[el.id]=el.value);
+  document.querySelectorAll('textarea[id]').forEach(el=>d[el.id]=el.value);
+  document.querySelectorAll('select[id]').forEach(el=>d[el.id]=el.value);
+  mols.forEach(m=>{
+    ['pbond','cancel','polar','symm'].forEach(g=>{
+      const els=[...document.querySelectorAll(`input[name="${g}-${m.id}"]`)];
+      d[`r:${g}-${m.id}`]=els.findIndex(r=>r.checked);
+    });
+    const c=document.getElementById('canvas-'+m.id);
+    if(c&&canvasState[m.id]?.hasContent){d['cv:'+m.id]=c.toDataURL('image/png');d['ch:'+m.id]=c.height}
+  });
+  // Practice canvases
+  ['p1','p2','pracBond','pracBond2'].forEach(id=>{
+    const c=document.getElementById('canvas-'+id);
+    if(c&&canvasState[id]?.hasContent){d['cv:'+id]=c.toDataURL('image/png');d['ch:'+id]=c.height}
+    ['pcancel','ppolar'].forEach(g=>{
+      const els=[...document.querySelectorAll(`input[name="${g}-${id}"]`)];
+      d[`r:${g}-${id}`]=els.findIndex(r=>r.checked);
+    });
+  });
+  d['_pinUnlocked'] = pinUnlocked;
+  // CH3Cl challenge canvas + radios
+  const cch=document.getElementById('canvas-ch3cl');
+  if(cch&&canvasState['ch3cl']?.hasContent){d['cv:ch3cl']=cch.toDataURL('image/png');d['ch:ch3cl']=cch.height}
+  ['pbond','cancel','polar','symm'].forEach(g=>{
+    const els=[...document.querySelectorAll(`input[name="${g}-ch3cl"]`)];
+    d[`r:${g}-ch3cl`]=els.findIndex(r=>r.checked);
+  });
+  try{
+    localStorage.setItem(SAVE_KEY,JSON.stringify(d));
+  }catch(e){
+    if(e.name==='QuotaExceededError'||e.name==='NS_ERROR_DOM_QUOTA_REACHED'){
+      alert('⚠️ Storage is full. Please click "Save Progress" to download your work as a file, then reload and Load it back to continue. Your drawing data is too large for the browser to store automatically.');
+    }
+  }
+}
+
+async function restoreAll(){
+  const raw=localStorage.getItem(SAVE_KEY);if(!raw)return;
+  const d=JSON.parse(raw);
+  // Purge any legacy JPEG canvas data (caused black overlay bug) 
+  let purged=false;
+  Object.keys(d).forEach(k=>{if(k.startsWith('cv:')&&d[k]&&!d[k].startsWith('data:image/png')){delete d[k];purged=true;}});
+  if(purged)localStorage.setItem(SAVE_KEY,JSON.stringify(d));
+  document.querySelectorAll('input[id]:not([type=radio]):not([type=file])').forEach(el=>{if(d[el.id]!==undefined)el.value=d[el.id]});
+  document.querySelectorAll('textarea[id]').forEach(el=>{if(d[el.id]!==undefined)el.value=d[el.id]});
+  document.querySelectorAll('select[id]').forEach(el=>{if(d[el.id]!==undefined)el.value=d[el.id]});
+  mols.forEach(m=>{
+    ['pbond','cancel','polar','symm'].forEach(g=>{
+      const els=[...document.querySelectorAll(`input[name="${g}-${m.id}"]`)];
+      const idx=d[`r:${g}-${m.id}`];
+      if(idx!==undefined&&idx>=0&&els[idx])els[idx].checked=true;
+    });
+  });
+  // Practice radios (p1 and p2 only — pracBond/pracBond2 use textareas only)
+  ['p1','p2'].forEach(id=>{
+    ['pcancel','ppolar'].forEach(g=>{
+      const els=[...document.querySelectorAll(`input[name="${g}-${id}"]`)];
+      const idx=d[`r:${g}-${id}`];
+      if(idx!==undefined&&idx>=0&&els[idx])els[idx].checked=true;
+    });
+  });
+  bonds.forEach(b=>{const el=document.getElementById('en1-'+b.id);if(el)el.dispatchEvent(new Event('input'))});
+  if(d['_pinUnlocked']){
+    pinUnlocked=true;
+    const gate=document.getElementById('pinGate');const lbl=document.getElementById('pinLabel');
+    const msg=document.getElementById('pinMsg');const status=document.getElementById('pinStatus');
+    const pi=document.getElementById('pinInput');const pb=document.querySelector('.pin-btn');
+    if(gate)gate.classList.add('unlocked');
+    if(lbl){lbl.textContent='✓ Models Verified';lbl.className='pin-lbl ok';}
+    if(status){status.textContent='✓ Unlocked!';status.className='pin-status ok';}
+    if(msg)msg.style.display='none';
+    if(pi)pi.disabled=true;
+    if(pb)pb.style.display='none';
+    const overlay4=document.getElementById('sec4Overlay');
+    if(overlay4)overlay4.classList.add('unlocked');
+    mols.forEach(m=>{const el=document.getElementById('ref-'+m.id);if(el)el.classList.add('shown');});
+    setTimeout(()=>{mols.forEach(m=>syncCanvasSize(m.id));syncCanvasSize('ch3cl');},400);
+    ['sec5Overlay','sec6Overlay'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el)el.classList.add('unlocked');
+    });
+  }
+  // Helper: draw saved canvas data — for overlay canvases, wait for DOM sizing
+  function restoreCanvas(id, dataUrl){
+    const c=document.getElementById('canvas-'+id);
+    if(!c||!dataUrl)return null;
+    // Skip blank, invalid, or legacy JPEG saves (JPEG has no transparency → black canvas)
+    if(!dataUrl.startsWith('data:image/png'))return null;
+    // Skip if data is very short (empty/corrupt PNG)
+    if(dataUrl.length<200)return null;
+    return new Promise(res=>{
+      const img=new Image();
+      img.onload=()=>{
+        const ctx=c.getContext('2d');
+        ctx.imageSmoothingEnabled=true;
+        ctx.imageSmoothingQuality='high';
+        ctx.clearRect(0,0,c.width,c.height);
+        ctx.drawImage(img,0,0,c.width,c.height);
+        const ph=document.getElementById('ph-'+id);
+        if(ph)ph.style.display='none';
+        if(canvasState[id])canvasState[id].hasContent=true;
+        res();
+      };
+      img.onerror=()=>res();
+      img.src=dataUrl;
+    });
+  }
+
+  const ps=[];
+  mols.forEach(m=>{
+    const v=d['cv:'+m.id];
+    if(v)ps.push(restoreCanvas(m.id,v));
+  });
+  ['p1','p2','pracBond','pracBond2'].forEach(id=>{
+    const v=d['cv:'+id];
+    if(v)ps.push(restoreCanvas(id,v));
+  });
+  ps.push(restoreCanvas('ch3cl',d['cv:ch3cl']));
+  // CH3Cl radios
+  ['pbond','cancel','polar','symm'].forEach(g=>{
+    const els=[...document.querySelectorAll(`input[name="${g}-ch3cl"]`)];
+    const idx=d[`r:${g}-ch3cl`];
+    if(idx!==undefined&&idx>=0&&els[idx])els[idx].checked=true;
+  });
+  return Promise.all(ps).then(()=>{ mols.forEach(m=>syncToSummary(m.id)); syncToSummary('ch3cl'); });
+}
+
+document.addEventListener('input',e=>{if(!e.target.matches('[type=file]'))saveAll()});
+document.addEventListener('change',e=>{if(e.target.matches('input[type=radio],select'))saveAll()});
+window.addEventListener('load',async()=>{
+  await restoreAll();
+  document.getElementById('cbBanner').classList.add('vis');
+
+});
+window.addEventListener('beforeunload',e=>{
+  // Always warn — localStorage is device-specific; unsaved progress will be lost on another computer
+  e.preventDefault();
+  e.returnValue='Download your progress file (Save Progress button) before closing to continue on another device.';
+});
+
+// ── FILE OPS ──
+function saveFile(){
+  const n=document.getElementById('sName').value.trim()||'Student';
+  const blob=new Blob([localStorage.getItem(SAVE_KEY)||'{}'],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`Polarity_Progress_${n}.json`;a.click();
+}
+function loadAny(e){
+  const f=e.target.files[0];if(!f)return;
+  e.target.value='';
+  const ext=f.name.split('.').pop().toLowerCase();
+  if(ext==='json'){
+    const r=new FileReader();
+    r.onload=ev=>{try{JSON.parse(ev.target.result);localStorage.setItem(SAVE_KEY,ev.target.result);location.reload()}catch{alert('Invalid progress file.')}};
+    r.readAsText(f);
+  } else if(ext==='html'){
+    importPrev({target:{files:[f],value:''}});
+  } else {
+    alert('Please select a .json progress file or a .html submission file.');
+  }
+}
+function togglePrintMenu(btn){
+  const m=document.getElementById('printMenu');
+  m.classList.toggle('open');
+  // close on outside click
+  if(m.classList.contains('open')){
+    setTimeout(()=>document.addEventListener('click',closePrintMenuOutside,{once:true}),0);
+  }
+}
+function closePrintMenu(){document.getElementById('printMenu').classList.remove('open');}
+function closePrintMenuOutside(e){if(!e.target.closest('.hbtn-print-wrap'))closePrintMenu();}
+function printBlank(){
+  // Clone the document but clear all student answers
+  const clone=document.documentElement.cloneNode(true);
+  clone.querySelectorAll('input[id]:not([type=radio]):not([type=file])').forEach(el=>el.removeAttribute('value'));
+  clone.querySelectorAll('textarea[id]').forEach(el=>{el.textContent='';});
+  clone.querySelectorAll('select[id]').forEach(el=>{[...el.options].forEach(o=>o.removeAttribute('selected'));});
+  clone.querySelectorAll('input[type=radio]').forEach(el=>el.removeAttribute('checked'));
+  // Replace canvases with empty placeholder boxes
+  clone.querySelectorAll('canvas').forEach(cc=>{
+    const box=document.createElement('div');
+    box.style.cssText='position:absolute;inset:0;border:none;background:transparent';
+    cc.parentNode.replaceChild(box,cc);
+  });
+  clone.querySelectorAll('.hbtn,.toolbar,#cbBanner,.resize-h,.pin-gate,.pin-lock-overlay,.cvs-ph,.vsepr-panel,.vsepr-drawer,.vsepr-drawer-tab,.sec-chev').forEach(el=>el.remove());
+  clone.querySelectorAll('script').forEach(el=>el.remove());
+  clone.querySelectorAll('.sec').forEach(el=>el.classList.remove('coll'));
+  clone.querySelectorAll('.ref-reveal').forEach(el=>el.classList.add('shown'));
+  const printStyle=clone.ownerDocument.createElement('style');
+  printStyle.textContent=`
+    .sec-body{max-height:none!important;overflow:visible!important;display:block!important}
+    .ref-reveal{max-height:none!important;display:block!important}
+    .panel,.vsepr-drawer,.vsepr-drawer-tab{display:none!important}
+    .wrap{display:block!important}.main{width:100%!important;padding:0!important}
+    @media print{
+      .question,.practice-card,.worked-ex,.mol-card,.refl-card,.refl-grid,.callout,.fc-step,.ref-body,.mol-overlay-outer{break-inside:avoid!important}
+      .sec-h,.we-head,.pc-head,.mol-head{break-after:avoid!important}
+    }`;
+  clone.querySelector('head').appendChild(printStyle);
+  const printScript=clone.ownerDocument.createElement('script');
+  printScript.textContent='window.onload=function(){window.print();}';
+  clone.querySelector('body').appendChild(printScript);
+  const html='<!DOCTYPE html>\n'+clone.outerHTML;
+  const blob=new Blob([html],{type:'text/html'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),10000);
+}
+function resetAll(){
+  if(!confirm('Reset all your work? This cannot be undone.'))return;
+  localStorage.removeItem(SAVE_KEY);
+  // Reset PIN state
+  pinUnlocked = false;
+  const gate=document.getElementById('pinGate');const lbl=document.getElementById('pinLabel');
+  const msg=document.getElementById('pinMsg');const status=document.getElementById('pinStatus');
+  const pi=document.getElementById('pinInput');const pb=document.querySelector('.pin-btn');
+  if(gate)gate.classList.remove('unlocked');
+  if(lbl){lbl.textContent='🔒 Teacher PIN';lbl.className='pin-lbl';}
+  if(status){status.textContent='';status.className='pin-status';}
+  if(msg)msg.style.display='';
+  if(pi){pi.value='';pi.disabled=false;}
+  if(pb)pb.style.display='';
+  mols.forEach(m=>{const el=document.getElementById('ref-'+m.id);if(el)el.classList.remove('shown');});
+  const overlay4=document.getElementById('sec4Overlay');
+  if(overlay4)overlay4.classList.remove('unlocked');
+  ['sec5Overlay','sec6Overlay'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.classList.remove('unlocked');
+  });
+  document.querySelectorAll('input[id]:not([type=radio]):not([type=file])').forEach(el=>el.value='');
+  // Clear all textareas
+  document.querySelectorAll('textarea[id]').forEach(el=>el.value='');
+  // Reset all selects
+  document.querySelectorAll('select[id]').forEach(el=>el.selectedIndex=0);
+  // Uncheck all radios
+  document.querySelectorAll('input[type=radio]').forEach(el=>el.checked=false);
+  // Reset ΔEN display spans
+  bonds.forEach(b=>{const el=document.getElementById('den-'+b.id);if(el)el.textContent='—'});
+  // Clear all canvases
+  mols.forEach(m=>{
+    const c=document.getElementById('canvas-'+m.id);
+    if(c){const h=c.height;c.width=c.width;c.height=h;}
+    const ph=document.getElementById('ph-'+m.id);
+    if(ph)ph.style.display='flex';
+    if(canvasState[m.id]){canvasState[m.id].history=[];canvasState[m.id].hasContent=false}
+  });
+  ['p1','p2','pracBond','pracBond2','ch3cl'].forEach(id=>{
+    const c=document.getElementById('canvas-'+id);
+    if(c){const h=c.height;c.width=c.width;c.height=h;}
+    const ph=document.getElementById('ph-'+id);
+    if(ph)ph.style.display='flex';
+    if(canvasState[id]){canvasState[id].history=[];canvasState[id].hasContent=false}
+  });
+  // Clear ch3cl radios and textarea
+  document.querySelectorAll('input[name^="pbond-ch3cl"],input[name^="symm-ch3cl"],input[name^="cancel-ch3cl"],input[name^="polar-ch3cl"]').forEach(el=>el.checked=false);
+  saveAll();
+}
+
+// Composite SVG diagram + drawing canvas into a single PNG data URL
+function compositeMolImage(molId){
+  return new Promise(resolve=>{
+    const wrap = document.getElementById('wrap-'+molId);
+    if(!wrap){resolve(null);return;}
+    const svg  = wrap.querySelector('svg');
+    const cvs  = document.getElementById('canvas-'+molId);
+    if(!svg){resolve(cvs?cvs.toDataURL('image/png'):null);return;}
+
+    // Get SVG dimensions from viewBox
+    const vb  = (svg.getAttribute('viewBox')||'0 0 260 200').split(/\s+/);
+    const svgW = +vb[2]||260, svgH = +vb[3]||200;
+    const dpr  = Math.min(window.devicePixelRatio||1,2);
+    const bw   = Math.round(svgW*dpr), bh = Math.round(svgH*dpr);
+
+    // Serialise SVG → blob URL → draw onto offscreen canvas
+    const svgStr  = new XMLSerializer().serializeToString(svg);
+    const svgBlob = new Blob([svgStr],{type:'image/svg+xml;charset=utf-8'});
+    const svgUrl  = URL.createObjectURL(svgBlob);
+
+    const offscreen = document.createElement('canvas');
+    offscreen.width = bw; offscreen.height = bh;
+    const ctx = offscreen.getContext('2d');
+
+    const svgImg = new Image();
+    svgImg.onload=()=>{
+      ctx.drawImage(svgImg,0,0,bw,bh);
+      URL.revokeObjectURL(svgUrl);
+      // Now draw the student's sketch on top
+      if(cvs && cvs.width>0 && cvs.height>0 && canvasState[molId]?.hasContent){
+        ctx.drawImage(cvs,0,0,bw,bh);
+      }
+      resolve(offscreen.toDataURL('image/png'));
+    };
+    svgImg.onerror=()=>{
+      URL.revokeObjectURL(svgUrl);
+      // Fallback: just the drawing
+      resolve(cvs?cvs.toDataURL('image/png'):null);
+    };
+    svgImg.src = svgUrl;
+  });
+}
+
+async function submitWork(){
+  const n=document.getElementById('sName').value.trim()||'Student';
+
+  // Pre-render all mol composites (SVG + drawing) before cloning DOM
+  const composites={};
+  const allIds=[...mols.map(m=>m.id),'ch3cl'];
+  await Promise.all(allIds.map(async id=>{
+    composites[id]=await compositeMolImage(id);
+  }));
+
+  const clone=document.documentElement.cloneNode(true);
+  clone.querySelectorAll('input[id]:not([type=radio]):not([type=file])').forEach(el=>{const o=document.getElementById(el.id);if(o)el.setAttribute('value',o.value)});
+  clone.querySelectorAll('textarea[id]').forEach(el=>{const o=document.getElementById(el.id);if(o)el.textContent=o.value});
+  clone.querySelectorAll('select[id]').forEach(el=>{const o=document.getElementById(el.id);if(!o)return;[...el.options].forEach((opt,i)=>{const live=o.options[i];if(live?.selected){opt.setAttribute('selected','');}else{opt.removeAttribute('selected');}});});
+  clone.querySelectorAll('input[type=radio]').forEach(el=>{const o=document.querySelector(`input[name="${el.name}"][value="${el.value}"]`);if(o&&o.checked)el.setAttribute('checked','')});
+
+  // Replace each mol-overlay-wrap (SVG + canvas) with the composited image
+  allIds.forEach(id=>{
+    const wrap=clone.querySelector('#wrap-'+id);
+    if(!wrap)return;
+    const dataUrl=composites[id];
+    const img=document.createElement('img');
+    if(dataUrl){
+      img.src=dataUrl;
+    } else {
+      // No composite — fall back to canvas-only
+      const oc=document.getElementById('canvas-'+id);
+      img.src=oc?oc.toDataURL('image/png'):'';
+    }
+    img.style.cssText='width:100%;display:block;border-radius:6px';
+    img.setAttribute('data-mol',id);
+    wrap.parentNode.replaceChild(img,wrap);
+  });
+
+  clone.querySelectorAll('.resize-h,.toolbar,#cbBanner').forEach(el=>el.remove());
+  clone.querySelectorAll('.hbtn').forEach(el=>el.remove());
+  clone.querySelectorAll('input[type=file]').forEach(el=>el.remove());
+  clone.querySelectorAll('script').forEach(el=>el.remove());
+  clone.querySelectorAll('input:not([type=radio]),textarea,select').forEach(el=>el.setAttribute('readonly',''));
+  const blob=new Blob(['<!DOCTYPE html>\n'+clone.outerHTML],{type:'text/html'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`Polarity_Worksheet_${n}.html`;a.click();
+}
+
+// ── PRINT VERSION ──
+function printVersion(){
+  // Clone the live document so print always matches the digital version exactly
+  const clone = document.documentElement.cloneNode(true);
+
+  // Bake in all current input/textarea/select values
+  clone.querySelectorAll('input[id]:not([type=radio]):not([type=file])').forEach(el=>{
+    const o = document.getElementById(el.id);
+    if(o) el.setAttribute('value', o.value);
+  });
+  clone.querySelectorAll('textarea[id]').forEach(el=>{
+    const o = document.getElementById(el.id);
+    if(o) el.textContent = o.value;
+  });
+  clone.querySelectorAll('select[id]').forEach(el=>{
+    const o = document.getElementById(el.id);
+    if(o) [...el.options].forEach((opt,i)=>{ opt.selected = o.options[i]?.selected||false; });
+  });
+  clone.querySelectorAll('input[type=radio]').forEach(el=>{
+    const o = document.querySelector(`input[name="${el.name}"][value="${el.value}"]`);
+    if(o && o.checked) el.setAttribute('checked','');
+  });
+
+  // Replace canvases with images
+  ['p1','p2','pracBond','pracBond2'].concat(mols.map(m=>m.id)).forEach(id=>{
+    const oc = document.getElementById('canvas-'+id);
+    const cc = clone.querySelector('#canvas-'+id);
+    if(oc && cc){
+      const img = document.createElement('img');
+      img.src = oc.toDataURL();
+      img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block';
+      cc.parentNode.replaceChild(img, cc);
+    }
+  });
+
+  // Remove interactive/screen-only elements
+  clone.querySelectorAll('.hbtn, .toolbar, #cbBanner, .resize-h, .pin-gate, .pin-lock-overlay, .cvs-ph').forEach(el=>el.remove());
+  clone.querySelectorAll('input[type=file]').forEach(el=>el.remove());
+  clone.querySelectorAll('script').forEach(el=>el.remove());
+
+  // Make all sections open (remove collapsed state)
+  clone.querySelectorAll('.sec').forEach(el=>el.classList.remove('coll'));
+
+  // Make all ref-reveal boxes visible (show mol cards even if PIN not entered)
+  clone.querySelectorAll('.ref-reveal').forEach(el=>el.classList.add('shown'));
+
+  // Make all inputs/textareas readonly
+  clone.querySelectorAll('input:not([type=radio]), textarea, select').forEach(el=>el.setAttribute('readonly',''));
+
+  // Inject a print-trigger script and minimal print-override style
+  const printStyle = clone.ownerDocument.createElement('style');
+  printStyle.textContent = `
+    .sec-body { max-height: none !important; overflow: visible !important; display: block !important; }
+    .sec.coll .sec-body { display: block !important; max-height: none !important; }
+    .ref-reveal { max-height: none !important; }
+    .ref-reveal.shown { max-height: none !important; display: block !important; }
+    .hbtn, .toolbar, #cbBanner, .resize-h, .pin-gate, .pin-lock-overlay, .cvs-ph, .sec-chev { display:none !important; }
+    @media print {
+      .panel, .vsepr-drawer, .vsepr-drawer-tab { display:none !important; }
+      .wrap { display:block !important; }
+      .main { width:100% !important; padding:0 !important; }
+      .question, .practice-card, .worked-ex, .concept-card, .mol-card,
+      .ref-reveal, .refl-card, .refl-grid, .sum-wrap, .callout,
+      .build-gate, .we-body, .pc-body-v2, .flowchart, .fc-step,
+      .cvs-wrap, .pc-overlay-wrap, .mol-overlay-wrap, .polar-dec,
+      .flowchart-steps, .sec1-ref-row, .ref-body, .mol-overlay-outer { break-inside: avoid !important; }
+      .sec-h, .we-head, .pc-head, .mol-head, .practice-head, .ref-hdr { break-after: avoid !important; }
+      img { max-width: 100% !important; height: auto !important; }
+      .mol-overlay-wrap, .pc-overlay-wrap { overflow: visible !important; }
+      .ref-sidebar { width: 180px !important; }
+    }
+  `;
+  clone.querySelector('head').appendChild(printStyle);
+
+  const printScript = clone.ownerDocument.createElement('script');
+  printScript.textContent = 'window.onload = function(){ window.print(); }';
+  clone.querySelector('body').appendChild(printScript);
+
+  const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+  const blob = new Blob([html], {type:'text/html'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.target = '_blank'; a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+}
+
+function importPrev(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=async ev=>{
+    const doc=new DOMParser().parseFromString(ev.target.result,'text/html');
+    document.querySelectorAll('input[id]:not([type=radio]):not([type=file])').forEach(el=>{const s=doc.getElementById(el.id);if(s)el.value=s.value||s.getAttribute('value')||''});
+    document.querySelectorAll('textarea[id]').forEach(el=>{const s=doc.getElementById(el.id);if(s)el.value=s.textContent||''});
+    document.querySelectorAll('select[id]').forEach(el=>{const s=doc.getElementById(el.id);if(s)el.value=s.value||''});
+    const ps=[];
+    mols.forEach(m=>{const img=doc.querySelector(`img[data-mol="${m.id}"]`);if(img?.src)ps.push(new Promise(res=>{const c=document.getElementById('canvas-'+m.id);const i=new Image();i.onload=()=>{c.getContext('2d').drawImage(i,0,0);const ph=document.getElementById('ph-'+m.id);if(ph)ph.style.display='none';if(canvasState[m.id])canvasState[m.id].hasContent=true;res()};i.src=img.src}))});
+    await Promise.all(ps);saveAll();alert(`Imported. ${ps.length} sketch(es) restored.`);
+  };
+  r.readAsText(f);e.target.value='';
+}
+</script>
+</body>
+</html>
