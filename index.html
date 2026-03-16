@@ -1227,7 +1227,18 @@ textarea.ans{min-height:52px;line-height:1.6}
         <div class="flowchart-steps">
 
           <div class="fc-step">
-            <div class="fc-step-hdr"><span class="fc-n">1</span><span class="fc-q">Do the bonds in <strong>CH₃Cl</strong> have ΔEN ≥ 0.4?</span></div>
+            <div class="fc-step-hdr"><span class="fc-n">1</span><span class="fc-q">What is the molecular geometry and bond angle of <strong>CH₃Cl</strong>?</span></div>
+            <div class="fc-hint">Use the VSEPR Reference Table and your model kit. CH₃Cl has the same electron geometry as CH₄ — think about how substituting Cl affects the shape.</div>
+            <div class="geo-answer-row">
+              <span class="geo-lbl">Molecular Geometry</span>
+              <select class="geo-sel ss" id="geo-ch3cl"><option value="">— select —</option><option value="linear">Linear</option><option value="trigonal planar">Trigonal planar</option><option value="tetrahedral">Tetrahedral</option><option value="trigonal pyramidal">Trigonal pyramidal</option><option value="bent">Bent</option><option value="octahedral">Octahedral</option><option value="square pyramidal">Square pyramidal</option><option value="square planar">Square planar</option></select>
+              <span class="geo-lbl" style="margin-left:14px">Bond Angle</span>
+              <select class="geo-sel ss" id="ang-ch3cl"><option value="">— select —</option><option value="180°">180°</option><option value="120°">120°</option><option value="109.5°">109.5°</option><option value="107°">~107°</option><option value="104.5°">~104.5°</option><option value="90°">90°</option><option value="85° / 90°">85° / 90°</option></select>
+            </div>
+          </div>
+
+          <div class="fc-step">
+            <div class="fc-step-hdr"><span class="fc-n">2</span><span class="fc-q">Do the bonds in <strong>CH₃Cl</strong> have ΔEN ≥ 0.4?</span></div>
             <div class="fc-hint">There are two different bond types here. C–H ΔEN = <span class="den-ref" id="denref-ch-ch3cl">—</span> (from Section 1). C–Cl ΔEN ≈ 0.5 (Cl EN = 3.0, C EN = 2.5).</div>
             <div class="radio-row">
               <label class="r-opt"><input type="radio" name="pbond-ch3cl" value="yes"> Yes — bonds are polar (ΔEN ≥ 0.4)</label>
@@ -1237,12 +1248,12 @@ textarea.ans{min-height:52px;line-height:1.6}
           </div>
 
           <div class="fc-step fc-draw">
-            <div class="fc-step-hdr"><span class="fc-n">2</span><span class="fc-q">Label partial charges and draw a dipole arrow on each polar bond above</span></div>
-            <div class="fc-hint">Label each atom δ+ (lower EN) or δ− (higher EN). Then draw a dipole arrow on each polar bond — tail at δ+, arrowhead pointing toward δ−. If there are no polar bonds, skip to Step 5.</div>
+            <div class="fc-step-hdr"><span class="fc-n">3</span><span class="fc-q">Label partial charges and draw a dipole arrow on each polar bond above</span></div>
+            <div class="fc-hint">Label each atom δ+ (lower EN) or δ− (higher EN). Draw dipole arrows on both C–H and C–Cl bonds. If no polar bonds, skip to Step 6.</div>
           </div>
 
           <div class="fc-step">
-            <div class="fc-step-hdr"><span class="fc-n">3</span><span class="fc-q">Is <strong>CH₃Cl</strong> symmetrical?</span></div>
+            <div class="fc-step-hdr"><span class="fc-n">4</span><span class="fc-q">Is <strong>CH₃Cl</strong> symmetrical?</span></div>
             <div class="fc-hint">Are all surrounding atoms the same, and are they arranged evenly around the central atom?</div>
             <div class="radio-row">
               <label class="r-opt"><input type="radio" name="symm-ch3cl" value="yes"> Yes — symmetrical</label>
@@ -1251,7 +1262,7 @@ textarea.ans{min-height:52px;line-height:1.6}
           </div>
 
           <div class="fc-step">
-            <div class="fc-step-hdr"><span class="fc-n">4</span><span class="fc-q">Do the dipole arrows cancel each other out completely?</span></div>
+            <div class="fc-step-hdr"><span class="fc-n">5</span><span class="fc-q">Do the dipole arrows cancel each other out completely?</span></div>
             <div class="radio-row">
               <label class="r-opt"><input type="radio" name="cancel-ch3cl" value="yes"> Yes — they cancel</label>
               <label class="r-opt"><input type="radio" name="cancel-ch3cl" value="no"> No — there is a net dipole</label>
@@ -1260,15 +1271,15 @@ textarea.ans{min-height:52px;line-height:1.6}
           </div>
 
           <div class="fc-step fc-final">
-            <div class="fc-step-hdr"><span class="fc-n">5</span><span class="fc-q">Overall molecular polarity</span></div>
+            <div class="fc-step-hdr"><span class="fc-n">6</span><span class="fc-q">Overall molecular polarity</span></div>
             <div class="radio-row">
               <label class="r-opt"><input type="radio" name="polar-ch3cl" value="polar"> 🔴 Polar</label>
               <label class="r-opt"><input type="radio" name="polar-ch3cl" value="nonpolar"> 🔵 Nonpolar</label>
             </div>
           </div>
 
-          <div class="fc-step" style="background:rgba(201,144,10,.06);border-left:3px solid var(--amber)">
-            <div class="fc-step-hdr"><span class="fc-n">💡</span><span class="fc-q">Reflection — compare to CH₄</span></div>
+          <div class="fc-step" style="background:rgba(201,144,10,.06);border-left:3px solid var(--gold)">
+            <div class="fc-step-hdr"><span class="fc-n">⭐</span><span class="fc-q">Bonus — compare to CH₄</span></div>
             <div class="fc-hint">CH₄ and CH₃Cl have the same tetrahedral geometry. Why does CH₄ end up nonpolar while CH₃Cl is polar? What specifically changed?</div>
             <textarea class="ans" id="q-ch3cl-refl" rows="2" placeholder="The difference between CH₄ and CH₃Cl is…"></textarea>
           </div>
@@ -1689,11 +1700,6 @@ mols.forEach(m => {
     <div class="mol-head">
       <span class="mol-formula">${m.formula}</span>
       <span class="mol-name">${m.name}</span>
-        <span class="geo-lbl">Molecular Geometry</span>
-        <select class="geo-sel ss" id="geo-${m.id}"><option value="">— select —</option><option value="linear">Linear</option><option value="trigonal planar">Trigonal planar</option><option value="tetrahedral">Tetrahedral</option><option value="trigonal pyramidal">Trigonal pyramidal</option><option value="bent">Bent</option><option value="octahedral">Octahedral</option><option value="square pyramidal">Square pyramidal</option><option value="square planar">Square planar</option></select>
-        <span class="geo-lbl" style="margin-left:8px">Bond Angle</span>
-        <select class="geo-sel ss" id="ang-${m.id}"><option value="">— select —</option><option value="180°">180°</option><option value="120°">120°</option><option value="109.5°">109.5°</option><option value="107°">~107°</option><option value="104.5°">~104.5°</option><option value="90°">90°</option><option value="85° / 90°">85° / 90°</option></select>
-      </div>
     </div>
 
     <div class="ref-reveal" id="ref-${m.id}">
@@ -1708,26 +1714,22 @@ mols.forEach(m => {
           <div class="mol-overlay-hint">Draw directly on the diagram — use <span style="color:var(--coral);font-weight:700">coral red</span> for dipole arrows</div>
           <div class="toolbar" id="tb-${m.id}">
             <div class="tb-grp">
-              <button class="tb-btn act" id="pen-${m.id}" onclick="setTool('${m.id}','pen')" title="Pen">✏️</button>
-              <button class="tb-btn" id="era-${m.id}" onclick="setTool('${m.id}','eraser')" title="Eraser">⬜</button>
+              <button class="tb-btn act" id="pen-${m.id}" onclick="setTool('${m.id}','pen')" title="Pen">✏</button>
+              <button class="tb-btn" id="era-${m.id}" onclick="setTool('${m.id}','eraser')" title="Eraser">⌫</button>
             </div>
-            <div class="tb-sep"></div>
             <div class="tb-grp">
-              <button class="sz-btn act" id="sz1-${m.id}" onclick="setSize('${m.id}',2,this)"><div class="sz-dot" style="width:3px;height:3px"></div></button>
-              <button class="sz-btn" id="sz2-${m.id}" onclick="setSize('${m.id}',5,this)"><div class="sz-dot" style="width:6px;height:6px"></div></button>
-              <button class="sz-btn" id="sz3-${m.id}" onclick="setSize('${m.id}',10,this)"><div class="sz-dot" style="width:10px;height:10px"></div></button>
+              <button class="tb-btn act" id="sz1-${m.id}" onclick="setSize('${m.id}',2,this)" title="Thin">●</button>
+              <button class="tb-btn" id="sz2-${m.id}" onclick="setSize('${m.id}',4,this)" title="Medium">●</button>
+              <button class="tb-btn" id="sz3-${m.id}" onclick="setSize('${m.id}',7,this)" title="Thick">●</button>
             </div>
-            <div class="tb-sep"></div>
-            <div class="tb-grp">
-              <div class="sw sel" style="background:#d94f2b" onclick="setColor('${m.id}','#d94f2b',this)" title="Coral — dipole arrows"></div>
-              <div class="sw" style="background:#1a7fc4" onclick="setColor('${m.id}','#1a7fc4',this)" title="Blue — net dipole"></div>
-              <div class="sw" style="background:#1a1040" onclick="setColor('${m.id}','#1a1040',this)" title="Ink"></div>
-              <div class="sw" style="background:#376348" onclick="setColor('${m.id}','#376348',this)" title="Green"></div>
+            <div class="tb-grp tb-colors">
+              <button class="sw sel" style="background:#d94f2b" onclick="setColor('${m.id}','#d94f2b',this)" title="Coral (dipole arrows)"></button>
+              <button class="sw" style="background:#1a1040" onclick="setColor('${m.id}','#1a1040',this)" title="Black (labels)"></button>
+              <button class="sw" style="background:#1a7fc4" onclick="setColor('${m.id}','#1a7fc4',this)" title="Blue (net dipole)"></button>
             </div>
-            <div class="tb-sep"></div>
             <div class="tb-grp">
-              <button class="tb-btn" onclick="undoCanvas('${m.id}')" title="Undo">↩️</button>
-              <button class="tb-btn" onclick="clearCanvas('${m.id}')" title="Clear">🗑️</button>
+              <button class="tb-btn" onclick="undoCanvas('${m.id}')" title="Undo">↩</button>
+              <button class="tb-btn tb-clear" onclick="clearCanvas('${m.id}')" title="Clear">🗑</button>
             </div>
           </div>
           <div class="mol-overlay-wrap" id="wrap-${m.id}">
@@ -1744,7 +1746,7 @@ mols.forEach(m => {
             <div class="bond-legend-head">Bond notation</div>
             <div class="bond-leg"><div class="bl-line"><svg width="28" height="10"><line x1="2" y1="5" x2="26" y2="5" stroke="#444" stroke-width="2"/></svg></div><span>Solid — in the plane of the screen</span></div>
             <div class="bond-leg"><div class="bl-line"><svg width="28" height="10"><polygon points="2,9 2,1 26,5" fill="#444"/></svg></div><span>Filled wedge — toward you</span></div>
-            <div class="bond-leg"><div class="bl-line"><svg width="28" height="10"><line x1="2" y1="5" x2="26" y2="5" stroke="#888" stroke-width="1.8" stroke-dasharray="3,2"/></svg></div><span>Dashed — away from you</span></div>
+            <div class="bond-leg"><div class="bl-line"><svg width="28" height="10"><line x1="2" y1="5" x2="26" y2="5" stroke="#888" stroke-width="2" stroke-dasharray="4,3"/></svg></div><span>Dashed — away from you</span></div>
           </div>
         </div>
 
@@ -1752,64 +1754,59 @@ mols.forEach(m => {
 
       <div class="flowchart-steps">
 
-          <div class="fc-step">
-            <div class="fc-step-hdr"><span class="fc-n">1</span><span class="fc-q">What is the molecular geometry and bond angle of <strong>CH₃Cl</strong>?</span></div>
-            <div class="fc-hint">Use the VSEPR Reference Table and your model kit. CH₃Cl has the same electron geometry as CH₄ — think about how substituting Cl affects the shape.</div>
-            <div class="geo-answer-row">
-              <span class="geo-lbl">Molecular Geometry</span>
-              <select class="geo-sel ss" id="geo-ch3cl"><option value="">— select —</option><option value="linear">Linear</option><option value="trigonal planar">Trigonal planar</option><option value="tetrahedral">Tetrahedral</option><option value="trigonal pyramidal">Trigonal pyramidal</option><option value="bent">Bent</option><option value="octahedral">Octahedral</option><option value="square pyramidal">Square pyramidal</option><option value="square planar">Square planar</option></select>
-              <span class="geo-lbl" style="margin-left:14px">Bond Angle</span>
-              <select class="geo-sel ss" id="ang-ch3cl"><option value="">— select —</option><option value="180°">180°</option><option value="120°">120°</option><option value="109.5°">109.5°</option><option value="107°">~107°</option><option value="104.5°">~104.5°</option><option value="90°">90°</option><option value="85° / 90°">85° / 90°</option></select>
-            </div>
+        <div class="fc-step">
+          <div class="fc-step-hdr"><span class="fc-n">1</span><span class="fc-q">What is the molecular geometry and bond angle of <strong>${m.formula}</strong>?</span></div>
+          <div class="fc-hint">Use the VSEPR Reference Table (tab on the right edge) and your model kit to determine the 3D shape. Check your Section 1 electron group count.</div>
+          <div class="geo-answer-row">
+            <span class="geo-lbl">Molecular Geometry</span>
+            <select class="geo-sel ss" id="geo-${m.id}"><option value="">— select —</option><option value="linear">Linear</option><option value="trigonal planar">Trigonal planar</option><option value="tetrahedral">Tetrahedral</option><option value="trigonal pyramidal">Trigonal pyramidal</option><option value="bent">Bent</option><option value="octahedral">Octahedral</option><option value="square pyramidal">Square pyramidal</option><option value="square planar">Square planar</option></select>
+            <span class="geo-lbl" style="margin-left:14px">Bond Angle</span>
+            <select class="geo-sel ss" id="ang-${m.id}"><option value="">— select —</option><option value="180°">180°</option><option value="120°">120°</option><option value="109.5°">109.5°</option><option value="107°">~107°</option><option value="104.5°">~104.5°</option><option value="90°">90°</option><option value="85° / 90°">85° / 90°</option></select>
           </div>
-
-          <div class="fc-step">
-            <div class="fc-step-hdr"><span class="fc-n">2</span><span class="fc-q">Do the bonds in <strong>CH₃Cl</strong> have ΔEN ≥ 0.4?</span></div>
-            <div class="fc-hint">There are two different bond types here. C–H ΔEN = <span class="den-ref" id="denref-ch-ch3cl">—</span> (from Section 1). C–Cl ΔEN ≈ 0.5 (Cl EN = 3.0, C EN = 2.5).</div>
-            <div class="radio-row">
-              <label class="r-opt"><input type="radio" name="pbond-ch3cl" value="yes"> Yes — bonds are polar (ΔEN ≥ 0.4)</label>
-              <label class="r-opt"><input type="radio" name="pbond-ch3cl" value="borderline"> Borderline (ΔEN ≈ 0.4)</label>
-              <label class="r-opt"><input type="radio" name="pbond-ch3cl" value="no"> No — bonds are nonpolar</label>
-            </div>
-          </div>
-
-          <div class="fc-step fc-draw">
-            <div class="fc-step-hdr"><span class="fc-n">3</span><span class="fc-q">Label partial charges and draw a dipole arrow on each polar bond above</span></div>
-            <div class="fc-hint">Label each atom δ+ (lower EN) or δ− (higher EN). Draw dipole arrows on both C–H and C–Cl bonds. If no polar bonds, skip to Step 6.</div>
-          </div>
-
-          <div class="fc-step">
-            <div class="fc-step-hdr"><span class="fc-n">4</span><span class="fc-q">Is <strong>CH₃Cl</strong> symmetrical?</span></div>
-            <div class="fc-hint">Are all surrounding atoms the same, and are they arranged evenly around the central atom?</div>
-            <div class="radio-row">
-              <label class="r-opt"><input type="radio" name="symm-ch3cl" value="yes"> Yes — symmetrical</label>
-              <label class="r-opt"><input type="radio" name="symm-ch3cl" value="no"> No — asymmetrical</label>
-            </div>
-          </div>
-
-          <div class="fc-step">
-            <div class="fc-step-hdr"><span class="fc-n">5</span><span class="fc-q">Do the dipole arrows cancel each other out completely?</span></div>
-            <div class="radio-row">
-              <label class="r-opt"><input type="radio" name="cancel-ch3cl" value="yes"> Yes — they cancel</label>
-              <label class="r-opt"><input type="radio" name="cancel-ch3cl" value="no"> No — there is a net dipole</label>
-              <label class="r-opt"><input type="radio" name="cancel-ch3cl" value="na"> N/A — no polar bonds</label>
-            </div>
-          </div>
-
-          <div class="fc-step fc-final">
-            <div class="fc-step-hdr"><span class="fc-n">6</span><span class="fc-q">Overall molecular polarity</span></div>
-            <div class="radio-row">
-              <label class="r-opt"><input type="radio" name="polar-ch3cl" value="polar"> 🔴 Polar</label>
-              <label class="r-opt"><input type="radio" name="polar-ch3cl" value="nonpolar"> 🔵 Nonpolar</label>
-            </div>
-          </div>
-
-          <div class="fc-step">
-            <div class="fc-step-hdr"><span class="fc-n">⭐ Bonus</span><span class="fc-q">Reflect: how does replacing one H with Cl change the polarity outcome?</span></div>
-            <textarea class="ans" id="q-ch3cl-refl" rows="2" placeholder="Compare CH₄ (which you already analyzed) to CH₃Cl — what specifically changed and why does that matter?"></textarea>
-          </div>
-
         </div>
+
+        <div class="fc-step">
+          <div class="fc-step-hdr"><span class="fc-n">2</span><span class="fc-q">Do the bonds in <strong>${m.formula}</strong> have ΔEN ≥ 0.4?</span></div>
+          <div class="fc-hint">From your Section 1 table: ${(m.bondIds||[]).map(bid=>{const b=bonds.find(x=>x.id===bid);return b?`<strong>${b.a1}–${b.a2} ΔEN = <span class="den-ref" id="denref-${bid}-${m.id}">—</span></strong>`:'';}).join(' &nbsp;·&nbsp; ')} <span style="color:var(--muted);font-size:10.5px">(enter EN values in Section 1 to see this)</span></div>
+          <div class="radio-row">
+            <label class="r-opt"><input type="radio" name="pbond-${m.id}" value="yes"> Yes — bonds are polar (ΔEN ≥ 0.4)</label>
+            <label class="r-opt"><input type="radio" name="pbond-${m.id}" value="borderline"> Borderline (ΔEN ≈ 0.4)</label>
+            <label class="r-opt"><input type="radio" name="pbond-${m.id}" value="no"> No — bonds are nonpolar</label>
+          </div>
+        </div>
+
+        <div class="fc-step fc-draw">
+          <div class="fc-step-hdr"><span class="fc-n">3</span><span class="fc-q">Label partial charges and draw a dipole arrow on each polar bond above</span></div>
+          <div class="fc-hint">Label each atom δ+ (lower EN) or δ− (higher EN). Then draw a dipole arrow on each polar bond — tail at δ+, arrowhead pointing toward δ−. If there are no polar bonds, skip to Step 6.</div>
+        </div>
+
+        <div class="fc-step">
+          <div class="fc-step-hdr"><span class="fc-n">4</span><span class="fc-q">Is <strong>${m.formula}</strong> symmetrical?</span></div>
+          <div class="fc-hint">Are all surrounding atoms the same, and are they arranged evenly around the central atom?</div>
+          <div class="radio-row">
+            <label class="r-opt"><input type="radio" name="symm-${m.id}" value="yes"> Yes — symmetrical</label>
+            <label class="r-opt"><input type="radio" name="symm-${m.id}" value="no"> No — asymmetrical</label>
+          </div>
+        </div>
+
+        <div class="fc-step">
+          <div class="fc-step-hdr"><span class="fc-n">5</span><span class="fc-q">Do the dipole arrows cancel each other out completely?</span></div>
+          <div class="radio-row">
+            <label class="r-opt"><input type="radio" name="cancel-${m.id}" value="yes"> Yes — they cancel</label>
+            <label class="r-opt"><input type="radio" name="cancel-${m.id}" value="no"> No — there is a net dipole</label>
+            <label class="r-opt"><input type="radio" name="cancel-${m.id}" value="na"> N/A — no polar bonds</label>
+          </div>
+        </div>
+
+        <div class="fc-step fc-final">
+          <div class="fc-step-hdr"><span class="fc-n">6</span><span class="fc-q">Overall molecular polarity</span></div>
+          <div class="radio-row">
+            <label class="r-opt"><input type="radio" name="polar-${m.id}" value="polar"> 🔴 Polar</label>
+            <label class="r-opt"><input type="radio" name="polar-${m.id}" value="nonpolar"> 🔵 Nonpolar</label>
+          </div>
+        </div>
+
+      </div>
     </div>
 
   `;
